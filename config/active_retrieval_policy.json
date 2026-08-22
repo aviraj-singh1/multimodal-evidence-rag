@@ -1,0 +1,5 @@
+{
+  "active_retrieval_policy": "V1.5",
+  "preserved_experiment": "V1.6",
+  "decision": "V1.6 improved candidate visibility but regressed aggregate evaluation metrics; V1.5 remains the active demo policy."
+}

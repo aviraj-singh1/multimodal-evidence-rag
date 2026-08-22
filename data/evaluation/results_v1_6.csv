@@ -1,0 +1,17 @@
+question_id,question,system,recall_at_5,complete_evidence,provenance_completeness,latency_ms
+Q1,What response is returned when a request is blocked by the rate limiter?,baseline,1.0,1,0.25,608.467
+Q1,What response is returned when a request is blocked by the rate limiter?,evidence_graph,0.0,0,0.0,572.417
+Q2,Which windowing algorithm was proposed for counting requests?,baseline,1.0,1,0.25,11.984
+Q2,Which windowing algorithm was proposed for counting requests?,evidence_graph,0.0,0,0.0,44.74
+Q3,How is high throughput handled and where is that component shown?,baseline,0.0,0,0.0,19.373
+Q3,How is high throughput handled and where is that component shown?,evidence_graph,0.5,0,1.0,45.072
+Q4,"What happens to blocked requests, and where is that behavior documented?",baseline,0.5,0,0.25,13.637
+Q4,"What happens to blocked requests, and where is that behavior documented?",evidence_graph,0.5,0,1.0,42.977
+Q5,Where is the logging path shown and how is it described in the design document?,baseline,0.5,0,0.3333333333333333,18.303
+Q5,Where is the logging path shown and how is it described in the design document?,evidence_graph,0.5,0,1.0,42.043
+Q6,"What architecture was discussed, who explained it, and where was the corresponding design shown?",baseline,0.3333333333333333,0,0.3333333333333333,15.123
+Q6,"What architecture was discussed, who explained it, and where was the corresponding design shown?",evidence_graph,0.0,0,0.0,44.917
+Q7,"What is the rules cache used for, and where can it be seen?",baseline,0.5,0,0.25,16.247
+Q7,"What is the rules cache used for, and where can it be seen?",evidence_graph,0.5,0,1.0,39.71
+Q8,"Who discussed the high-throughput rate-limiter cache, at what point in the meeting, and where is the design documented?",baseline,0.5,0,0.3333333333333333,16.789
+Q8,"Who discussed the high-throughput rate-limiter cache, at what point in the meeting, and where is the design documented?",evidence_graph,0.5,0,1.0,48.796
