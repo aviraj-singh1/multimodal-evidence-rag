@@ -112,25 +112,38 @@ Status: COMPLETE
 
 ## Milestone 3 — OCR + PDF Extraction
 
-Status: NOT STARTED
+Status: COMPLETE
 
 ### Image / Frames
-- [ ] PaddleOCR integration
-- [ ] OCR text
-- [ ] OCR confidence
-- [ ] OCR bounding boxes
+- [x] PaddleOCR integration
+- [x] OCR text
+- [x] OCR confidence
+- [x] OCR bounding boxes
 - [ ] Tesseract fallback if PaddleOCR fails
 
 ### PDF
-- [ ] PyMuPDF integration
-- [ ] Page-level extraction
-- [ ] Block-level extraction
-- [ ] Preserve page number
-- [ ] Preserve bbox where available
+- [x] PyMuPDF integration
+- [x] Page-level extraction
+- [x] Block-level extraction
+- [x] Preserve page number
+- [x] Preserve bbox where available
+
+### Content Extraction Notes
+
+- Video OCR: PaddleOCR processed all 15 existing representative frames only; 10 frames contained text and 64 non-empty OCR regions were preserved with confidence, bbox, frame ID/path, and exact `frames.json` timestamp.
+- Strong architecture frames: 840, 960, and 1080 seconds. Recovered labels include `Rules Engine`, `Rules cache`, `API rate limiter`, `client(s)`, `Load balancer`, `Api/web servers`, `failure 429 HTTP code`, `Cache(high throughput)`, `Logging mechanism`, and `Long term storage`.
+- Frame-by-frame QA: 10.56 `Exponent`; 120 `Exponent`; 148.2 none; 240 `Exponent`; 360 none; 475.48 none; 480 none; 600 `client`; 720 partial diagram; 840 architecture diagram; 960 architecture diagram plus requirements; 1080 architecture diagram plus requirements; 1200 none; 1250.48 `Exponent`; 1320 `Exponent`.
+- OCR quality limitations were retained unmodified: the 720-second frame misread visible `429` as `529`; the 840-second frame read `AI Rate limiter`; `architecture_02.png` produced a stray `AP'` and `*`, and read `Long term storagee`. Arrows and diagram relationships are visual structure rather than OCR text and were not encoded in this milestone.
+- Standalone images: `architecture_01.png` → `src_9899772d9cc4` with 12 regions; `architecture_02.png` → `src_66bf6ebf0dbc` with 20 regions. Both preserve filename, SHA-256, dimensions, confidence, and bbox provenance. `architecture_02.png` is the strongest complete architecture fixture.
+- PDF: `rate_limiter_design.pdf` → `src_00b5ee2f232b`; 2 pages and 52 text blocks (page 1: 31, page 2: 21), with 1-based page numbers, page dimensions, page text, block text, and bbox.
+- PDF QA: page 1 extracts `Rate Limiter Architecture`, server-side middleware, rules engine, high-throughput cache, HTTP 429, logging, and the request path. Page 2 extracts `Request Lifecycle and Rules-Cache Optimization`, the rules-cache optimization, and architecture concepts. The intended demo design content is sufficiently extractable.
+- Cache: exact second CLI run reported `REUSED` for video OCR, both standalone images, and PDF extraction; PaddleOCR is lazily initialized only for uncached work.
+- Tests: 9 focused OCR/PDF tests passed; `pip check` reports no broken requirements.
+- Fallback: Tesseract was not invoked or silently substituted because PaddleOCR passed.
 
 ### Acceptance
-- [ ] Architecture diagram text is recovered
-- [ ] Important PDF information is extracted with correct page number
+- [x] Architecture diagram text is recovered
+- [x] Important PDF information is extracted with correct page number
 
 ---
 
