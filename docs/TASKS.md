@@ -149,22 +149,22 @@ Status: COMPLETE
 
 ## Milestone 4 — Evidence Nodes + Storage + Cache
 
-Status: NOT STARTED
+Status: COMPLETE
 
-- [ ] Define `Source`
+- [x] Define `Source`
 - [ ] Define `ProcessingJob`
-- [ ] Define `EvidenceNode`
-- [ ] SQLite schema
-- [ ] Persist sources
-- [ ] Persist evidence nodes
-- [ ] Build speech nodes
-- [ ] Build frame nodes
-- [ ] Build image nodes
-- [ ] Build OCR nodes/data
-- [ ] Build PDF nodes
-- [ ] Preserve provenance
-- [ ] Cache `evidence.json`
-- [ ] Unit tests
+- [x] Define `EvidenceNode`
+- [x] SQLite schema
+- [x] Persist sources
+- [x] Persist evidence nodes
+- [x] Build speech nodes
+- [x] Build frame nodes
+- [x] Build image nodes
+- [x] Build OCR nodes/data
+- [x] Build PDF nodes
+- [x] Preserve provenance
+- [x] Cache `evidence.json`
+- [x] Unit tests
 
 ### Required EvidenceNode fields
 
@@ -185,10 +185,22 @@ Status: NOT STARTED
 - visual_vector_id
 
 ### Acceptance
-- [ ] Speech node has timestamp + speaker
-- [ ] Frame node has timestamp + image
-- [ ] PDF node has page number
-- [ ] Every node has source + provenance
+- [x] Speech node has timestamp + speaker
+- [x] Frame node has timestamp + image
+- [x] PDF node has page number
+- [x] Every node has source + provenance
+
+### Evidence Storage Notes
+
+- Four evidence-ready sources were persisted to `data/app.db`: one video, two standalone images, and one PDF. The audio-only preprocessing cache was not treated as evidence-ready because it has no transcript artifact.
+- Built 333 deterministic EvidenceNodes: 168 speech, 15 video frames, 96 OCR regions, 2 image parents, and 52 PDF text blocks. Per-source counts are 247, 13, 21, and 52 respectively.
+- Raw extraction artifacts remain the source of truth. Speech text/timestamps/speaker clusters, frame timestamps/paths, OCR text/confidence/bboxes, and PDF text/page/bboxes are copied without correction or invented confidence.
+- Known OCR errors remain unchanged, including `529`, `AI Rate limiter`, and `Long term storagee`; the corresponding correct PDF observations remain separate.
+- Every node has deterministic source/locator provenance. All `entities` are empty and both vector IDs are null; no Milestone 5+ indexing or relationships were created.
+- Rebuilds use an atomic per-source transaction: source UPSERT, delete that source's nodes, then reinsert deterministic nodes. Idempotency and rollback after an intentional constraint failure passed.
+- Each source has `evidence.json`; cache counts and IDs agree with SQLite. Foreign-key validation passed.
+- Tests: 28 passed, 1 pre-existing FFmpeg-dependent test class skipped because FFmpeg was not on the test process PATH. The new evidence model/builder/storage tests all passed.
+- `ProcessingJob` remains unchecked because the explicit Milestone 4 implementation brief required only `sources` and `evidence_nodes` tables and prohibited expanding this storage milestone.
 
 ---
 
