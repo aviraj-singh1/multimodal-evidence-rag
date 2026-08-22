@@ -80,21 +80,33 @@ data/cache/{source_id}/
 
 ## Milestone 2 — Transcription + Speaker Attribution
 
-Status: NOT STARTED
+Status: COMPLETE
 
-- [ ] faster-whisper transcription
-- [ ] Preserve segment start/end timestamps
-- [ ] Generate `transcript.json`
-- [ ] pyannote speaker diarization
-- [ ] Generate `diarization.json`
-- [ ] Match speaker intervals to transcript segments
-- [ ] Support cached/precomputed diarization fallback
-- [ ] Tests
+- [x] faster-whisper transcription
+- [x] Preserve segment start/end timestamps
+- [x] Generate `transcript.json`
+- [x] pyannote speaker diarization
+- [x] Generate `diarization.json`
+- [x] Match speaker intervals to transcript segments
+- [x] Support cached/precomputed diarization fallback
+- [x] Tests
+
+### Speech Processing Notes
+
+- Input: existing full-length `data/cache/src_1347fcb63e98/audio.wav`; no trimming or Milestone 1 reprocessing was performed.
+- Transcription: faster-whisper 1.1.0, `base`, CPU, int8, beam size 5, VAD enabled. Generated 168 native Whisper segments in 121.079 seconds; detected language `en`. Segment confidence remains `null` because `avg_logprob` was not misrepresented as a 0–1 confidence.
+- Diarization: `pyannote/speaker-diarization-3.1`, CPU. Generated 463 sorted speaker turns in 1091.575 seconds and detected 6 speaker clusters.
+- Alignment: maximum summed interval overlap per speaker; 168/168 transcript segments attributed, 0 unattributed, 12 flagged `multi_speaker`; alignment took approximately 0.003 seconds.
+- Timeline: transcript, diarization, and frame timestamps all use the unchanged original 0–1354 second `meeting_demo.mp4` coordinate system.
+- Cache: transcription and diarization cache validity includes source ID/hash, pipeline version, model, configuration, and output schema. Exact second run reported both stages `REUSED`.
+- Tests: 10 focused tests passed; `pip check` reports no broken requirements.
+- Manual QA: transcript text is understandable and aligns plausibly with representative frames (for example, the 720-second frame aligns with the 713.90–724.94 rate-limiter-cache discussion). Speaker changes at the opening interviewer/candidate handoff are plausible.
+- Known quality issue: the video visibly contains two primary participants, while unconstrained pyannote produced 6 speaker clusters. This is likely speaker over-clustering; labels remain usable for deterministic provenance but should be reviewed before relying on exact speaker-count semantics. No identity recognition or silent model/configuration change was applied.
 
 ### Acceptance
-- [ ] Transcript text is correct enough for demo
-- [ ] Every demo speech segment has timestamp
-- [ ] Important demo segments have speaker labels
+- [x] Transcript text is correct enough for demo
+- [x] Every demo speech segment has timestamp
+- [x] Important demo segments have speaker labels
 
 ---
 
