@@ -1,0 +1,337 @@
+# Build Progress
+
+> Rule: Do not start the next milestone until the current milestone's acceptance checks pass.
+
+---
+
+## Milestone 0 — Dependency Smoke Tests
+
+Status: COMPLETE
+
+- [x] FFmpeg available
+- [x] FFprobe available
+- [x] Python venv working
+- [x] faster-whisper import + tiny transcription test
+- [x] pyannote import + HF authentication test
+- [x] PaddleOCR import + one image OCR test
+- [x] PyMuPDF import + PDF extraction test
+- [x] sentence-transformers MiniLM loads
+- [x] CLIP loads OR mark CLIP disabled
+- [x] Record fallback decisions in TASKS.md
+
+### Smoke Test Notes
+
+- Python: 3.11.9 from the existing `.venv`; `pip check` reports no broken requirements.
+- Device: AMD Ryzen 7 5800H CPU. NVIDIA GeForce RTX 3050 Laptop GPU (4 GB) is present, but the installed PyTorch 2.5.1 build is CPU-only, so smoke-test inference ran in CPU mode.
+- FFmpeg / FFprobe: 9.0; FFprobe successfully read `meeting_demo.mp4` from the external demo dataset without modifying it.
+- PyMuPDF: 1.24.14; extracted page 1 text from `rate_limiter_design.pdf` (2 pages).
+- Text embedding: `sentence-transformers/all-MiniLM-L6-v2`; produced a 384-dimensional embedding.
+- Speech: `faster-whisper` 1.1.0 with the `base` model, CPU `int8`; transcribed only a 12-second WAV copied/extracted into `data/smoke/` and exposed timestamped segments.
+- Diarization: `pyannote.audio` 3.3.2 loaded `pyannote/speaker-diarization-3.1` (including gated dependency `pyannote/segmentation-3.0`) using `HF_TOKEN` from the repo-root `.env`. A 12-second smoke WAV returned 4 speaker-labelled turns; the first was `SPEAKER_00` at 0.03–2.02 seconds. The token value was never printed.
+- OCR: PaddlePaddle 2.6.2 + PaddleOCR 2.9.1; loaded English detection/recognition models and returned OCR result structures and text from `data/smoke/ocr_sample.png`.
+- Visual embedding: `openai/clip-vit-base-patch32`; produced matching 512-dimensional text and image embeddings.
+- Failures/manual blockers: none.
+- Fallbacks: no fallback was activated. Tesseract is not needed because PaddleOCR passed; cached precomputed diarization is not needed because pyannote passed; CLIP remains enabled because it passed.
+
+### Acceptance
+- [x] Every P0 dependency either works or has documented fallback
+
+---
+
+## Milestone 1 — Media Preprocessing
+
+Status: NOT STARTED
+
+- [ ] MP4 → 16 kHz mono WAV
+- [ ] MP3/WAV → normalized 16 kHz mono WAV
+- [ ] MP4 → timestamped representative frames
+- [ ] Limit frame count to sensible amount
+- [ ] Generate `frames.json`
+- [ ] Generate source metadata
+- [ ] FFmpeg / FFprobe error handling
+- [ ] Create source-specific cache directory
+- [ ] CLI smoke test
+
+### Output
+
+data/cache/{source_id}/
+- audio.wav
+- frames/
+- frames.json
+- source.json
+
+### Acceptance
+- [ ] Demo MP4 produces playable WAV
+- [ ] Extracted frames have correct timestamps
+- [ ] Rerunning same source can reuse cache
+
+---
+
+## Milestone 2 — Transcription + Speaker Attribution
+
+Status: NOT STARTED
+
+- [ ] faster-whisper transcription
+- [ ] Preserve segment start/end timestamps
+- [ ] Generate `transcript.json`
+- [ ] pyannote speaker diarization
+- [ ] Generate `diarization.json`
+- [ ] Match speaker intervals to transcript segments
+- [ ] Support cached/precomputed diarization fallback
+- [ ] Tests
+
+### Acceptance
+- [ ] Transcript text is correct enough for demo
+- [ ] Every demo speech segment has timestamp
+- [ ] Important demo segments have speaker labels
+
+---
+
+## Milestone 3 — OCR + PDF Extraction
+
+Status: NOT STARTED
+
+### Image / Frames
+- [ ] PaddleOCR integration
+- [ ] OCR text
+- [ ] OCR confidence
+- [ ] OCR bounding boxes
+- [ ] Tesseract fallback if PaddleOCR fails
+
+### PDF
+- [ ] PyMuPDF integration
+- [ ] Page-level extraction
+- [ ] Block-level extraction
+- [ ] Preserve page number
+- [ ] Preserve bbox where available
+
+### Acceptance
+- [ ] Architecture diagram text is recovered
+- [ ] Important PDF information is extracted with correct page number
+
+---
+
+## Milestone 4 — Evidence Nodes + Storage + Cache
+
+Status: NOT STARTED
+
+- [ ] Define `Source`
+- [ ] Define `ProcessingJob`
+- [ ] Define `EvidenceNode`
+- [ ] SQLite schema
+- [ ] Persist sources
+- [ ] Persist evidence nodes
+- [ ] Build speech nodes
+- [ ] Build frame nodes
+- [ ] Build image nodes
+- [ ] Build OCR nodes/data
+- [ ] Build PDF nodes
+- [ ] Preserve provenance
+- [ ] Cache `evidence.json`
+- [ ] Unit tests
+
+### Required EvidenceNode fields
+
+- id
+- source_id
+- modality
+- content
+- start_sec
+- end_sec
+- speaker
+- page_number
+- bbox
+- frame_path
+- entities
+- confidence
+- provenance
+- text_vector_id
+- visual_vector_id
+
+### Acceptance
+- [ ] Speech node has timestamp + speaker
+- [ ] Frame node has timestamp + image
+- [ ] PDF node has page number
+- [ ] Every node has source + provenance
+
+---
+
+## Milestone 5 — Entities + Evidence Relationships
+
+Status: NOT STARTED
+
+### Entity Layer
+- [ ] Entity extraction
+- [ ] Lowercase / punctuation normalization
+- [ ] Alias map
+- [ ] Ignore generic stop entities
+
+### Relationships
+- [ ] Define `EvidenceEdge`
+- [ ] Temporal overlap scoring
+- [ ] Entity overlap scoring
+- [ ] Combined confidence calculation
+- [ ] Persist edges in SQLite
+- [ ] Store `signal_breakdown`
+- [ ] Store human-readable explanation
+- [ ] Load graph into NetworkX
+- [ ] Cache `edges.json`
+- [ ] Unit tests
+
+### Acceptance
+- [ ] Known speech ↔ frame pair creates TEMPORAL_OVERLAP
+- [ ] Known speech/frame ↔ PDF pair creates ENTITY_OVERLAP
+- [ ] Every edge exposes confidence + reason
+
+---
+
+## Milestone 6 — Multimodal Retrieval + Graph Expansion
+
+Status: NOT STARTED
+
+### Vector Setup
+- [ ] Chroma persistent storage
+- [ ] `text_evidence` collection
+- [ ] `visual_evidence` collection
+- [ ] MiniLM text embeddings
+- [ ] CLIP image embeddings if enabled
+
+### Retrieval
+- [ ] Query MiniLM embedding
+- [ ] Query CLIP text embedding
+- [ ] Query entity extraction
+- [ ] Text retrieval
+- [ ] Visual retrieval
+- [ ] Entity retrieval
+- [ ] Candidate fusion
+- [ ] NetworkX graph expansion
+- [ ] Reranking
+- [ ] Evidence bundle creation
+
+### Answer
+- [ ] Deterministic answer formatter
+- [ ] External LLM adapter only if time permits
+
+### API
+- [ ] POST `/api/query`
+- [ ] GET `/api/evidence`
+- [ ] GET `/api/evidence/{id}`
+
+### Acceptance
+- [ ] Query retrieves 2+ modalities
+- [ ] Graph expansion returns evidence not directly found by vector search
+- [ ] Results retain timestamps/pages/frames
+- [ ] Query works with external LLM disabled
+
+---
+
+## Milestone 7 — Baseline RAG + Evaluation
+
+Status: NOT STARTED
+
+### Baseline
+- [ ] Flatten transcript + OCR + PDF text
+- [ ] Fixed text chunks
+- [ ] MiniLM embeddings
+- [ ] `baseline_text` Chroma collection
+- [ ] POST `/api/baseline/query`
+
+### Evaluation
+- [ ] Create 6+ evaluation questions
+- [ ] Ground-truth required evidence
+- [ ] Evidence Recall@5
+- [ ] Complete Evidence Rate
+- [ ] Provenance Completeness
+- [ ] Run baseline
+- [ ] Run EvidenceGraph
+- [ ] Export JSON
+- [ ] Export CSV
+
+### Acceptance
+- [ ] Same questions run against both systems
+- [ ] Metrics are based on actual results
+- [ ] No fabricated comparison numbers
+
+---
+
+## Milestone 8 — Frontend
+
+Status: NOT STARTED
+
+### Dataset
+- [ ] Source list
+- [ ] Processing status
+- [ ] Load Demo Dataset button
+
+### Ask
+- [ ] Query input
+- [ ] EvidenceGraph query
+- [ ] Baseline toggle
+- [ ] Final answer
+- [ ] Evidence cards
+
+### Evidence Explorer
+- [ ] Speech evidence card
+- [ ] Frame/image evidence card
+- [ ] PDF evidence card
+- [ ] Connected evidence
+- [ ] Edge type
+- [ ] Confidence
+- [ ] Signal breakdown
+- [ ] "Why these connect"
+
+### Acceptance
+- [ ] Judge can understand the evidence chain without seeing backend logs
+- [ ] Flagship query is demo-ready
+
+---
+
+## Milestone 9 — Demo Reliability + Documentation
+
+Status: NOT STARTED
+
+### Cache
+- [ ] Final demo corpus completely processed
+- [ ] transcript.json
+- [ ] diarization.json
+- [ ] frames.json
+- [ ] ocr.json
+- [ ] pdf_blocks.json
+- [ ] evidence.json
+- [ ] edges.json
+- [ ] embeddings persisted
+- [ ] `/api/demo/load`
+
+### Reliability
+- [ ] Restart backend and reload demo from cache
+- [ ] Test with external LLM disabled
+- [ ] Test with CLIP disabled
+- [ ] Test flagship query repeatedly
+
+### Docs
+- [ ] README.md
+- [ ] ARCHITECTURE.md
+- [ ] SCHEMA.md
+- [ ] FUTURE.md
+- [ ] DEMO.md
+
+### Final Demo Acceptance
+- [ ] Video/audio/image/PDF represented
+- [ ] Cross-modal relationship visible
+- [ ] Query requires multiple modalities
+- [ ] Speaker shown
+- [ ] Timestamp shown
+- [ ] Frame shown
+- [ ] PDF page shown
+- [ ] Baseline comparison shown
+- [ ] Evaluation table shown
+
+---
+
+# Final Build Freeze
+
+Do not add new features after Milestone 9 begins.
+
+Priority:
+
+Evidence → Relationships → Retrieval → Evaluation → UI

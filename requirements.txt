@@ -1,0 +1,17 @@
+# Milestone 0 dependency-smoke-test environment for Python 3.11.
+numpy==1.26.4
+torch==2.5.1
+torchvision==0.20.1
+torchaudio==2.5.1
+PyMuPDF==1.24.14
+sentence-transformers==3.3.1
+faster-whisper==1.1.0
+pyannote.audio==3.3.2
+paddlepaddle==2.6.2
+paddleocr==2.9.1
+transformers==4.47.1
+Pillow==10.4.0
+opencv-python==4.10.0.84
+opencv-contrib-python==4.10.0.84
+opencv-python-headless==4.10.0.84
+python-dotenv==1.0.1
