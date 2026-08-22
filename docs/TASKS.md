@@ -40,17 +40,17 @@ Status: COMPLETE
 
 ## Milestone 1 — Media Preprocessing
 
-Status: NOT STARTED
+Status: COMPLETE
 
-- [ ] MP4 → 16 kHz mono WAV
-- [ ] MP3/WAV → normalized 16 kHz mono WAV
-- [ ] MP4 → timestamped representative frames
-- [ ] Limit frame count to sensible amount
-- [ ] Generate `frames.json`
-- [ ] Generate source metadata
-- [ ] FFmpeg / FFprobe error handling
-- [ ] Create source-specific cache directory
-- [ ] CLI smoke test
+- [x] MP4 → 16 kHz mono WAV
+- [x] MP3/WAV → normalized 16 kHz mono WAV
+- [x] MP4 → timestamped representative frames
+- [x] Limit frame count to sensible amount
+- [x] Generate `frames.json`
+- [x] Generate source metadata
+- [x] FFmpeg / FFprobe error handling
+- [x] Create source-specific cache directory
+- [x] CLI smoke test
 
 ### Output
 
@@ -60,10 +60,21 @@ data/cache/{source_id}/
 - frames.json
 - source.json
 
+### Preprocessing Notes
+
+- Demo fixture: external read-only `../demo_dataset/meeting_demo.mp4` (H.264, 1280×720, 25 FPS, 1354.0 seconds; AAC stereo 44.1 kHz source audio).
+- Deterministic source ID: `src_1347fcb63e98`, derived from the first 12 characters of the source SHA-256.
+- Audio output: PCM signed 16-bit little-endian WAV, mono, 16 kHz; FFprobe validation and a decode test passed.
+- Direct audio: external MP3 and a direct WAV input both normalized successfully without overwriting their inputs.
+- Frames: 15 JPEGs with original-video timestamps, bounded below the hard maximum of 30.
+- Selection: scene threshold 0.35 plus 120-second interval supplementation because scene-only extraction left a 485.64-second coverage gap. Manual contact-sheet inspection confirmed both speakers and multiple meaningful completed architecture-diagram states were captured.
+- Cache: source hash, pipeline version, settings, manifests, and expected outputs are validated. An exact rerun reported `REUSED`.
+- Tests: 7 focused tests passed, covering deterministic IDs, metadata, MP4/audio outputs, direct WAV normalization, frame structure/files/timestamps/count, cache reuse, and invalid inputs.
+
 ### Acceptance
-- [ ] Demo MP4 produces playable WAV
-- [ ] Extracted frames have correct timestamps
-- [ ] Rerunning same source can reuse cache
+- [x] Demo MP4 produces playable WAV
+- [x] Extracted frames have correct timestamps
+- [x] Rerunning same source can reuse cache
 
 ---
 
