@@ -1,0 +1,3303 @@
+{
+  "timestamp": "2026-08-22T23:39:26.203407+00:00",
+  "evaluation_version": "1.0",
+  "retrieval_configuration": {
+    "top_k": 5,
+    "baseline_model": "sentence-transformers/all-MiniLM-L6-v2",
+    "graph_hops": 1
+  },
+  "question_definitions": [
+    {
+      "id": "Q1",
+      "question": "What response is returned when a request is blocked by the rate limiter?",
+      "required_groups": [
+        {
+          "name": "blocked_response",
+          "required_modality_family": "text",
+          "acceptable_evidence_ids": [
+            "ev_1347fcb63e98_speech_0091",
+            "ev_00b5ee2f232b_pdf_p001_b013",
+            "ev_00b5ee2f232b_pdf_p002_b008",
+            "ev_1347fcb63e98_ocr_frame_0010_009"
+          ]
+        }
+      ],
+      "notes": "A single textual observation establishing genuine HTTP 429 behavior is sufficient; noisy 529 is excluded."
+    },
+    {
+      "id": "Q2",
+      "question": "Which windowing algorithm was proposed for counting requests?",
+      "required_groups": [
+        {
+          "name": "algorithm_explanation",
+          "required_modality_family": "speech",
+          "acceptable_evidence_ids": [
+            "ev_1347fcb63e98_speech_0053",
+            "ev_1347fcb63e98_speech_0054",
+            "ev_1347fcb63e98_speech_0055"
+          ]
+        }
+      ],
+      "notes": "Single-modality speech sanity question about the proposed sliding-window approach."
+    },
+    {
+      "id": "Q3",
+      "question": "How is high throughput handled and where is that component shown?",
+      "required_groups": [
+        {
+          "name": "throughput_explanation",
+          "required_modality_family": "speech",
+          "acceptable_evidence_ids": [
+            "ev_1347fcb63e98_speech_0072",
+            "ev_1347fcb63e98_speech_0088"
+          ]
+        },
+        {
+          "name": "throughput_visual",
+          "required_modality_family": "visual",
+          "acceptable_evidence_ids": [
+            "ev_1347fcb63e98_frame_0009",
+            "ev_1347fcb63e98_frame_0010",
+            "ev_9899772d9cc4_image",
+            "ev_66bf6ebf0dbc_image"
+          ]
+        }
+      ],
+      "notes": "Requires the spoken cache rationale and an architecture visual."
+    },
+    {
+      "id": "Q4",
+      "question": "What happens to blocked requests, and where is that behavior documented?",
+      "required_groups": [
+        {
+          "name": "spoken_block_behavior",
+          "required_modality_family": "speech",
+          "acceptable_evidence_ids": [
+            "ev_1347fcb63e98_speech_0090",
+            "ev_1347fcb63e98_speech_0091"
+          ]
+        },
+        {
+          "name": "documented_block_behavior",
+          "required_modality_family": "document",
+          "acceptable_evidence_ids": [
+            "ev_00b5ee2f232b_pdf_p001_b013",
+            "ev_00b5ee2f232b_pdf_p002_b008"
+          ]
+        }
+      ],
+      "notes": "Requires meeting explanation plus design-document evidence."
+    },
+    {
+      "id": "Q5",
+      "question": "Where is the logging path shown and how is it described in the design document?",
+      "required_groups": [
+        {
+          "name": "logging_visual",
+          "required_modality_family": "visual",
+          "acceptable_evidence_ids": [
+            "ev_1347fcb63e98_frame_0010",
+            "ev_1347fcb63e98_frame_0011",
+            "ev_1347fcb63e98_frame_0012",
+            "ev_9899772d9cc4_image",
+            "ev_66bf6ebf0dbc_image"
+          ]
+        },
+        {
+          "name": "logging_document",
+          "required_modality_family": "document",
+          "acceptable_evidence_ids": [
+            "ev_00b5ee2f232b_pdf_p001_b023",
+            "ev_00b5ee2f232b_pdf_p002_b009",
+            "ev_00b5ee2f232b_pdf_p002_b018"
+          ]
+        }
+      ],
+      "notes": "Requires a visual architecture observation and document description."
+    },
+    {
+      "id": "Q6",
+      "question": "What architecture was discussed, who explained it, and where was the corresponding design shown?",
+      "required_groups": [
+        {
+          "name": "speech_explanation",
+          "required_modality_family": "speech",
+          "acceptable_evidence_ids": [
+            "ev_1347fcb63e98_speech_0088",
+            "ev_1347fcb63e98_speech_0099",
+            "ev_1347fcb63e98_speech_0116"
+          ]
+        },
+        {
+          "name": "architecture_visual",
+          "required_modality_family": "visual",
+          "acceptable_evidence_ids": [
+            "ev_1347fcb63e98_frame_0009",
+            "ev_1347fcb63e98_frame_0010",
+            "ev_1347fcb63e98_frame_0011",
+            "ev_1347fcb63e98_frame_0012",
+            "ev_9899772d9cc4_image",
+            "ev_66bf6ebf0dbc_image"
+          ]
+        },
+        {
+          "name": "design_document",
+          "required_modality_family": "document",
+          "acceptable_evidence_ids": [
+            "ev_00b5ee2f232b_pdf_p001_b001",
+            "ev_00b5ee2f232b_pdf_p001_b002",
+            "ev_00b5ee2f232b_pdf_p002_b019"
+          ]
+        }
+      ],
+      "notes": "Flagship three-family question requiring speaker-bearing speech, a visual, and the PDF."
+    },
+    {
+      "id": "Q7",
+      "question": "What is the rules cache used for, and where can it be seen?",
+      "required_groups": [
+        {
+          "name": "rules_cache_explanation",
+          "required_modality_family": "speech",
+          "acceptable_evidence_ids": [
+            "ev_1347fcb63e98_speech_0099",
+            "ev_1347fcb63e98_speech_0100",
+            "ev_1347fcb63e98_speech_0101"
+          ]
+        },
+        {
+          "name": "rules_cache_visual",
+          "required_modality_family": "visual",
+          "acceptable_evidence_ids": [
+            "ev_1347fcb63e98_frame_0010",
+            "ev_1347fcb63e98_frame_0011",
+            "ev_1347fcb63e98_frame_0012",
+            "ev_9899772d9cc4_image",
+            "ev_66bf6ebf0dbc_image"
+          ]
+        }
+      ],
+      "notes": "Cross-modal speech and visual rules-cache evidence."
+    },
+    {
+      "id": "Q8",
+      "question": "Who discussed the high-throughput rate-limiter cache, at what point in the meeting, and where is the design documented?",
+      "required_groups": [
+        {
+          "name": "speaker_timestamp_evidence",
+          "required_modality_family": "speech",
+          "acceptable_evidence_ids": [
+            "ev_1347fcb63e98_speech_0088"
+          ]
+        },
+        {
+          "name": "cache_documentation",
+          "required_modality_family": "document",
+          "acceptable_evidence_ids": [
+            "ev_00b5ee2f232b_pdf_p001_b028",
+            "ev_00b5ee2f232b_pdf_p002_b006",
+            "ev_00b5ee2f232b_pdf_p002_b016"
+          ]
+        }
+      ],
+      "notes": "Adversarial provenance question requiring speaker/timestamp-bearing speech and a PDF page."
+    }
+  ],
+  "results": [
+    {
+      "question_id": "Q1",
+      "question": "What response is returned when a request is blocked by the rate limiter?",
+      "required_groups": [
+        {
+          "name": "blocked_response",
+          "required_modality_family": "text",
+          "acceptable_evidence_ids": [
+            "ev_1347fcb63e98_speech_0091",
+            "ev_00b5ee2f232b_pdf_p001_b013",
+            "ev_00b5ee2f232b_pdf_p002_b008",
+            "ev_1347fcb63e98_ocr_frame_0010_009"
+          ]
+        }
+      ],
+      "baseline": {
+        "top_results": [
+          {
+            "chunk_id": "baseline_1347fcb63e98_0022",
+            "text": ", the rate limiter needs to see whether\n\nRules Engine\n\nclient(s)\n\nAPI rate limiter\n\nsuccess\n\nApi/web servers\n\n200HTTP\n\nfailure 529 HTTP code\n\nCache(high\n\nthroughput)\n\na particular user, if you are blocking, let's say based on IP, how many requests have they already\n\nconsumed within the given counter? Yeah. Also, I think you mentioned this before. I think you mentioned\n\nit's a 429 HTTP code. I just want to make sure that you mean the same thing over here. Sorry. Yeah.\n\nYeah. Yeah. And then from h",
+            "source_id": "src_1347fcb63e98",
+            "source_filename": "meeting_demo.mp4",
+            "chunk_index": 22,
+            "member_evidence_ids": [
+              "ev_1347fcb63e98_speech_0088",
+              "ev_1347fcb63e98_ocr_frame_0009_001",
+              "ev_1347fcb63e98_ocr_frame_0009_002",
+              "ev_1347fcb63e98_ocr_frame_0009_003",
+              "ev_1347fcb63e98_ocr_frame_0009_004",
+              "ev_1347fcb63e98_ocr_frame_0009_005",
+              "ev_1347fcb63e98_ocr_frame_0009_006",
+              "ev_1347fcb63e98_ocr_frame_0009_007",
+              "ev_1347fcb63e98_ocr_frame_0009_008",
+              "ev_1347fcb63e98_ocr_frame_0009_009",
+              "ev_1347fcb63e98_speech_0089",
+              "ev_1347fcb63e98_speech_0090",
+              "ev_1347fcb63e98_speech_0091",
+              "ev_1347fcb63e98_speech_0092"
+            ],
+            "score": 0.720852,
+            "raw_distance": 0.27914844389595994
+          },
+          {
+            "chunk_id": "baseline_1347fcb63e98_0016",
+            "text": "aid at the start of the recording that we will have a server side implementation\n\nright of the rate limiter. And one of the reasons we want to do this is server side is on the client\n\nside, it could be easy for someone who has malicious intent to forge or bypass the rate limiter.\n\nLike if every client were to have an implementation of the rate limiter. So we would do this on the\n\nserver side. So we have more control over it. So before the request gets processed to our API\n\nservers or our web ser",
+            "source_id": "src_1347fcb63e98",
+            "source_filename": "meeting_demo.mp4",
+            "chunk_index": 16,
+            "member_evidence_ids": [
+              "ev_1347fcb63e98_speech_0063",
+              "ev_1347fcb63e98_speech_0064",
+              "ev_1347fcb63e98_speech_0065",
+              "ev_1347fcb63e98_speech_0066",
+              "ev_1347fcb63e98_speech_0067",
+              "ev_1347fcb63e98_speech_0068"
+            ],
+            "score": 0.649188,
+            "raw_distance": 0.35081224999014526
+          },
+          {
+            "chunk_id": "baseline_1347fcb63e98_0021",
+            "text": "ers. So if we are like blocking the engine like a 529\n\nHTTP code out here. So success, we would kind of go back and then the server would respond back\n\nand then eventually the middleware would go back here. So you would get a 200 response\n\nor as I mentioned, another thing we would need over here is a cache. So you have a cache which has a\n\nhigh throughput. The reason for this cache is that the API, the rate limiter needs to see whether\n\nRules Engine\n\nclient(s)\n\nAPI rate limiter\n\nsuccess\n\nApi/web",
+            "source_id": "src_1347fcb63e98",
+            "source_filename": "meeting_demo.mp4",
+            "chunk_index": 21,
+            "member_evidence_ids": [
+              "ev_1347fcb63e98_speech_0084",
+              "ev_1347fcb63e98_speech_0085",
+              "ev_1347fcb63e98_speech_0086",
+              "ev_1347fcb63e98_speech_0087",
+              "ev_1347fcb63e98_speech_0088",
+              "ev_1347fcb63e98_ocr_frame_0009_001",
+              "ev_1347fcb63e98_ocr_frame_0009_002",
+              "ev_1347fcb63e98_ocr_frame_0009_003",
+              "ev_1347fcb63e98_ocr_frame_0009_004",
+              "ev_1347fcb63e98_ocr_frame_0009_005"
+            ],
+            "score": 0.636912,
+            "raw_distance": 0.36308792089197894
+          },
+          {
+            "chunk_id": "baseline_1347fcb63e98_0002",
+            "text": "k interview and our question for you is can you design a rate limiter for us?\n\nSo just to get started, a rate limiter is a system that blocks our user request or allows a certain\n\nnumber of requests to go through in a specified period of time. Why do we need a rate limiter?\n\nWe need rate limiters to prevent DDoS which is denial of service.\n\nAttacks, it helps to reduce costs for the company because they need less servers to manage their load\n\nand it prevents overload for the system. So some kind ",
+            "source_id": "src_1347fcb63e98",
+            "source_filename": "meeting_demo.mp4",
+            "chunk_index": 2,
+            "member_evidence_ids": [
+              "ev_1347fcb63e98_speech_0005",
+              "ev_1347fcb63e98_speech_0006",
+              "ev_1347fcb63e98_speech_0007",
+              "ev_1347fcb63e98_speech_0008",
+              "ev_1347fcb63e98_speech_0009",
+              "ev_1347fcb63e98_speech_0010"
+            ],
+            "score": 0.623751,
+            "raw_distance": 0.37624915032226813
+          },
+          {
+            "chunk_id": "baseline_1347fcb63e98_0039",
+            "text": "ild some rate time mechanisms within your\n\nsystem yourself to try after like a few seconds to see if the request is then going through. So these\n\nare the few things you could do as a user to kind of prevent yourself from getting blocked.\n\nExponent\n\nOkay. I think this is a good place for us to stop. Thank you so much as I thought. Any thoughts\n\nthat you have post the interview? No, no specific thoughts. I think again, like rate limit or any kind\n\nof system design interview is an open-ended questi",
+            "source_id": "src_1347fcb63e98",
+            "source_filename": "meeting_demo.mp4",
+            "chunk_index": 39,
+            "member_evidence_ids": [
+              "ev_1347fcb63e98_speech_0151",
+              "ev_1347fcb63e98_speech_0152",
+              "ev_1347fcb63e98_speech_0153",
+              "ev_1347fcb63e98_ocr_frame_0014_001",
+              "ev_1347fcb63e98_speech_0154",
+              "ev_1347fcb63e98_speech_0155",
+              "ev_1347fcb63e98_speech_0156"
+            ],
+            "score": 0.613187,
+            "raw_distance": 0.38681293756506263
+          }
+        ],
+        "group_hits": {
+          "blocked_response": true
+        },
+        "recall_at_5": 1.0,
+        "complete": true,
+        "provenance_completeness": 0.25,
+        "latency_ms": 19.447
+      },
+      "evidence_graph": {
+        "top_results": [
+          {
+            "evidence_id": "ev_00b5ee2f232b_pdf_p001_b002",
+            "channel_scores": {
+              "entity": 1.0
+            },
+            "reasons": [
+              "DIRECT entity: 1.000 (rate limiter, request)"
+            ],
+            "seed_score": 1.0,
+            "origin": "direct",
+            "direct": true,
+            "connection_score": 0.0,
+            "final_score": 0.95,
+            "node": {
+              "id": "ev_00b5ee2f232b_pdf_p001_b002",
+              "source_id": "src_00b5ee2f232b",
+              "modality": "pdf_text",
+              "content": "A compact system-design reference for a server-side rate limiter that protects API and web servers by applying\nconfigurable rules, tracking recent request usage, and rejecting excessive traffic.",
+              "start_sec": null,
+              "end_sec": null,
+              "speaker": null,
+              "page_number": 1,
+              "bbox": [
+                42.52,
+                73.447,
+                547.405,
+                100.599
+              ],
+              "frame_path": null,
+              "entities": [
+                "api",
+                "rate limiter",
+                "request",
+                "server",
+                "web server"
+              ],
+              "confidence": null,
+              "provenance": {
+                "block_id": "page_001_block_002",
+                "file": "rate_limiter_design.pdf",
+                "locator_type": "pdf_block",
+                "page_number": 1,
+                "source_id": "src_00b5ee2f232b"
+              },
+              "text_vector_id": "text:ev_00b5ee2f232b_pdf_p001_b002",
+              "visual_vector_id": null
+            },
+            "selection_role": "direct_anchor"
+          },
+          {
+            "evidence_id": "ev_00b5ee2f232b_pdf_p001_b004",
+            "channel_scores": {
+              "entity": 1.0
+            },
+            "reasons": [
+              "DIRECT entity: 1.000 (rate limiter, request)"
+            ],
+            "seed_score": 1.0,
+            "origin": "direct",
+            "direct": true,
+            "connection_score": 0.0,
+            "final_score": 0.95,
+            "node": {
+              "id": "ev_00b5ee2f232b_pdf_p001_b004",
+              "source_id": "src_00b5ee2f232b",
+              "modality": "pdf_text",
+              "content": "HIGH-LEVEL REQUEST PATH\nClients\nRate Limiter",
+              "start_sec": null,
+              "end_sec": null,
+              "speaker": null,
+              "page_number": 1,
+              "bbox": [
+                52.52,
+                152.639,
+                337.871,
+                166.409
+              ],
+              "frame_path": null,
+              "entities": [
+                "client",
+                "rate limiter",
+                "request"
+              ],
+              "confidence": null,
+              "provenance": {
+                "block_id": "page_001_block_004",
+                "file": "rate_limiter_design.pdf",
+                "locator_type": "pdf_block",
+                "page_number": 1,
+                "source_id": "src_00b5ee2f232b"
+              },
+              "text_vector_id": "text:ev_00b5ee2f232b_pdf_p001_b004",
+              "visual_vector_id": null
+            },
+            "selection_role": "direct_anchor"
+          },
+          {
+            "evidence_id": "ev_1347fcb63e98_speech_0067",
+            "origin": "graph_expanded",
+            "origin_seed_id": "ev_00b5ee2f232b_pdf_p001_b002",
+            "origin_seed_score": 1.0,
+            "propagated_relevance": 0.8,
+            "connection_score": 1.0,
+            "edge_confidence": 1.0,
+            "hop_count": 1,
+            "reason": "EXPANDED from ev_00b5ee2f232b_pdf_p001_b002: ENTITY_OVERLAP 1.000",
+            "direct": false,
+            "final_score": 0.72,
+            "reasons": [
+              "EXPANDED from ev_00b5ee2f232b_pdf_p001_b002: ENTITY_OVERLAP 1.000"
+            ],
+            "node": {
+              "id": "ev_1347fcb63e98_speech_0067",
+              "source_id": "src_1347fcb63e98",
+              "modality": "speech",
+              "content": "server side. So we have more control over it. So before the request gets processed to our API",
+              "start_sec": 509.01,
+              "end_sec": 517.65,
+              "speaker": "SPEAKER_01",
+              "page_number": null,
+              "bbox": null,
+              "frame_path": null,
+              "entities": [
+                "api",
+                "request",
+                "server"
+              ],
+              "confidence": null,
+              "provenance": {
+                "end_sec": 517.65,
+                "file": "meeting_demo.mp4",
+                "locator_type": "time_range",
+                "multi_speaker": false,
+                "source_id": "src_1347fcb63e98",
+                "speaker_alignment": {
+                  "overlap_ratio": 0.828125,
+                  "overlap_sec": 7.155,
+                  "segment_duration_sec": 8.64,
+                  "speaker_overlaps": {
+                    "SPEAKER_01": 7.155
+                  }
+                },
+                "start_sec": 509.01,
+                "transcript_segment_id": "seg_0067"
+              },
+              "text_vector_id": "text:ev_1347fcb63e98_speech_0067",
+              "visual_vector_id": null
+            },
+            "selection_role": "graph_complement"
+          },
+          {
+            "evidence_id": "ev_00b5ee2f232b_pdf_p002_b004",
+            "channel_scores": {
+              "entity": 1.0
+            },
+            "reasons": [
+              "DIRECT entity: 1.000 (rate limiter, request)"
+            ],
+            "seed_score": 1.0,
+            "origin": "direct",
+            "direct": true,
+            "connection_score": 0.0,
+            "final_score": 0.95,
+            "node": {
+              "id": "ev_00b5ee2f232b_pdf_p002_b004",
+              "source_id": "src_00b5ee2f232b",
+              "modality": "pdf_text",
+              "content": "1\nClient request\nThe request reaches server-side rate-limiting middleware before normal API or web-server logic.",
+              "start_sec": null,
+              "end_sec": null,
+              "speaker": null,
+              "page_number": 2,
+              "bbox": [
+                49.351,
+                129.318,
+                401.807,
+                151.882
+              ],
+              "frame_path": null,
+              "entities": [
+                "api",
+                "client",
+                "middleware",
+                "rate limiter",
+                "request",
+                "server",
+                "web server"
+              ],
+              "confidence": null,
+              "provenance": {
+                "block_id": "page_002_block_004",
+                "file": "rate_limiter_design.pdf",
+                "locator_type": "pdf_block",
+                "page_number": 2,
+                "source_id": "src_00b5ee2f232b"
+              },
+              "text_vector_id": "text:ev_00b5ee2f232b_pdf_p002_b004",
+              "visual_vector_id": null
+            },
+            "selection_role": "ranked_fill"
+          },
+          {
+            "evidence_id": "ev_00b5ee2f232b_pdf_p002_b014",
+            "channel_scores": {
+              "entity": 1.0
+            },
+            "reasons": [
+              "DIRECT entity: 1.000 (rate limiter, request)"
+            ],
+            "seed_score": 1.0,
+            "origin": "direct",
+            "direct": true,
+            "connection_score": 0.0,
+            "final_score": 0.95,
+            "node": {
+              "id": "ev_00b5ee2f232b_pdf_p002_b014",
+              "source_id": "src_00b5ee2f232b",
+              "modality": "pdf_text",
+              "content": "Rate limiter middleware\nServer-side gate before API / web servers.\nSpeech about server-side control + visual request path.",
+              "start_sec": null,
+              "end_sec": null,
+              "speaker": null,
+              "page_number": 2,
+              "bbox": [
+                47.52,
+                466.102,
+                505.593,
+                475.583
+              ],
+              "frame_path": null,
+              "entities": [
+                "middleware",
+                "rate limiter",
+                "request",
+                "server",
+                "web server"
+              ],
+              "confidence": null,
+              "provenance": {
+                "block_id": "page_002_block_014",
+                "file": "rate_limiter_design.pdf",
+                "locator_type": "pdf_block",
+                "page_number": 2,
+                "source_id": "src_00b5ee2f232b"
+              },
+              "text_vector_id": "text:ev_00b5ee2f232b_pdf_p002_b014",
+              "visual_vector_id": null
+            },
+            "selection_role": "ranked_fill"
+          }
+        ],
+        "group_hits": {
+          "blocked_response": false
+        },
+        "recall_at_5": 0.0,
+        "complete": false,
+        "provenance_completeness": 0.0,
+        "latency_ms": 569.013
+      }
+    },
+    {
+      "question_id": "Q2",
+      "question": "Which windowing algorithm was proposed for counting requests?",
+      "required_groups": [
+        {
+          "name": "algorithm_explanation",
+          "required_modality_family": "speech",
+          "acceptable_evidence_ids": [
+            "ev_1347fcb63e98_speech_0053",
+            "ev_1347fcb63e98_speech_0054",
+            "ev_1347fcb63e98_speech_0055"
+          ]
+        }
+      ],
+      "baseline": {
+        "top_results": [
+          {
+            "chunk_id": "baseline_1347fcb63e98_0012",
+            "text": "\nsecond and the start of the next window. So you could have a spike of requests getting processed\n\nvery quickly. And then you have large spaces of time where no requests can get processed. So you\n\nhave varying implementations of this algorithm like the sliding windows systems where based on\n\ntraffic patterns, you are constantly tweaking the the window size and the counter in each window\n\nto best suit your needs. Yeah. Any questions so far? Okay, so let's say that we are designing this\n\nrate limi",
+            "source_id": "src_1347fcb63e98",
+            "source_filename": "meeting_demo.mp4",
+            "chunk_index": 12,
+            "member_evidence_ids": [
+              "ev_1347fcb63e98_speech_0047",
+              "ev_1347fcb63e98_speech_0048",
+              "ev_1347fcb63e98_speech_0049",
+              "ev_1347fcb63e98_speech_0050",
+              "ev_1347fcb63e98_speech_0051",
+              "ev_1347fcb63e98_speech_0052"
+            ],
+            "score": 0.657238,
+            "raw_distance": 0.34276158238250054
+          },
+          {
+            "chunk_id": "baseline_1347fcb63e98_0011",
+            "text": ". So if you think of it like let's say in a 10 second window, you have 30 requests that can\n\nbe handled. In the once those 30 requests are used up in the 10 seconds, you have to wait for the next\n\n10 second window to start before new requests can be processed. The downside to this implementation\n\nis that you could have cases where technically requests are coming in maybe towards the end of the 10\n\nsecond and the start of the next window. So you could have a spike of requests getting processed\n\nv",
+            "source_id": "src_1347fcb63e98",
+            "source_filename": "meeting_demo.mp4",
+            "chunk_index": 11,
+            "member_evidence_ids": [
+              "ev_1347fcb63e98_speech_0043",
+              "ev_1347fcb63e98_speech_0044",
+              "ev_1347fcb63e98_speech_0045",
+              "ev_1347fcb63e98_speech_0046",
+              "ev_1347fcb63e98_speech_0047",
+              "ev_1347fcb63e98_speech_0048"
+            ],
+            "score": 0.633927,
+            "raw_distance": 0.3660725330395823
+          },
+          {
+            "chunk_id": "baseline_1347fcb63e98_0014",
+            "text": "eep sliding them as time goes by. So if there is an extra request that are no longer\n\nused, we can keep sliding the window with it. So that way there are spikes in traffic. And if there\n\nare loves, they can be handled well. Got it. Okay. And is there like a limit to how much you can\n\nslide over for each of these windows? Yeah. So I think all of those are configurations that you can set\n\nwhen you define the rules of the system. So I think some of those details like in the high level design,\n\nit's",
+            "source_id": "src_1347fcb63e98",
+            "source_filename": "meeting_demo.mp4",
+            "chunk_index": 14,
+            "member_evidence_ids": [
+              "ev_1347fcb63e98_speech_0055",
+              "ev_1347fcb63e98_speech_0056",
+              "ev_1347fcb63e98_speech_0057",
+              "ev_1347fcb63e98_speech_0058",
+              "ev_1347fcb63e98_speech_0059",
+              "ev_1347fcb63e98_speech_0060"
+            ],
+            "score": 0.477137,
+            "raw_distance": 0.5228625497621042
+          },
+          {
+            "chunk_id": "baseline_00b5ee2f232b_0010",
+            "text": "ke up the rate-limiting design, how are request counts checked, what happens to blocked requests, and where is the same\narchitecture shown visually?\n\nWording is intentionally similar in meaning but not identical to the spoken explanation, to support realistic semantic retrieval tests.\n\nSynthetic multimodal-RAG test fixture; not an official Exponent document.\nPage 2 of 2",
+            "source_id": "src_00b5ee2f232b",
+            "source_filename": "rate_limiter_design.pdf",
+            "chunk_index": 10,
+            "member_evidence_ids": [
+              "ev_00b5ee2f232b_pdf_p002_b019",
+              "ev_00b5ee2f232b_pdf_p002_b020",
+              "ev_00b5ee2f232b_pdf_p002_b021"
+            ],
+            "score": 0.466282,
+            "raw_distance": 0.5337182903115356
+          },
+          {
+            "chunk_id": "baseline_1347fcb63e98_0010",
+            "text": "u would have a large number of users not getting the response that they want. So you would have to\n\nkeep tweaking the size of the bucket. But a very popular system is the fixed window system\n\nwhere essentially given a time window, you would have a fixed number of responses available within\n\nthat time window. Once those responses are used up until the clock starts again, no request can get\n\nhandled. So if you think of it like let's say in a 10 second window, you have 30 requests that can\n\nbe hand",
+            "source_id": "src_1347fcb63e98",
+            "source_filename": "meeting_demo.mp4",
+            "chunk_index": 10,
+            "member_evidence_ids": [
+              "ev_1347fcb63e98_speech_0039",
+              "ev_1347fcb63e98_speech_0040",
+              "ev_1347fcb63e98_speech_0041",
+              "ev_1347fcb63e98_speech_0042",
+              "ev_1347fcb63e98_speech_0043",
+              "ev_1347fcb63e98_speech_0044"
+            ],
+            "score": 0.445064,
+            "raw_distance": 0.5549358788766143
+          }
+        ],
+        "group_hits": {
+          "algorithm_explanation": true
+        },
+        "recall_at_5": 1.0,
+        "complete": true,
+        "provenance_completeness": 0.25,
+        "latency_ms": 12.959
+      },
+      "evidence_graph": {
+        "top_results": [
+          {
+            "evidence_id": "ev_1347fcb63e98_speech_0054",
+            "channel_scores": {
+              "text": 0.65019
+            },
+            "reasons": [
+              "DIRECT text: 0.650"
+            ],
+            "seed_score": 0.65019,
+            "origin": "direct",
+            "direct": true,
+            "connection_score": 0.0,
+            "final_score": 0.670152,
+            "node": {
+              "id": "ev_1347fcb63e98_speech_0054",
+              "source_id": "src_1347fcb63e98",
+              "modality": "speech",
+              "content": "algorithm like I would use more of a sliding window where we are not fixing the amount of requests per",
+              "start_sec": 409.97,
+              "end_sec": 418.29,
+              "speaker": "SPEAKER_01",
+              "page_number": null,
+              "bbox": null,
+              "frame_path": null,
+              "entities": [
+                "sliding window"
+              ],
+              "confidence": null,
+              "provenance": {
+                "end_sec": 418.29,
+                "file": "meeting_demo.mp4",
+                "locator_type": "time_range",
+                "multi_speaker": false,
+                "source_id": "src_1347fcb63e98",
+                "speaker_alignment": {
+                  "overlap_ratio": 0.969576,
+                  "overlap_sec": 8.066875,
+                  "segment_duration_sec": 8.32,
+                  "speaker_overlaps": {
+                    "SPEAKER_00": 0.455625,
+                    "SPEAKER_01": 8.066875
+                  }
+                },
+                "start_sec": 409.97,
+                "transcript_segment_id": "seg_0054"
+              },
+              "text_vector_id": "text:ev_1347fcb63e98_speech_0054",
+              "visual_vector_id": null
+            },
+            "selection_role": "direct_anchor"
+          },
+          {
+            "evidence_id": "ev_1347fcb63e98_speech_0041",
+            "channel_scores": {
+              "text": 0.611328
+            },
+            "reasons": [
+              "DIRECT text: 0.611"
+            ],
+            "seed_score": 0.611328,
+            "origin": "direct",
+            "direct": true,
+            "connection_score": 0.0,
+            "final_score": 0.639062,
+            "node": {
+              "id": "ev_1347fcb63e98_speech_0041",
+              "source_id": "src_1347fcb63e98",
+              "modality": "speech",
+              "content": "where essentially given a time window, you would have a fixed number of responses available within",
+              "start_sec": 303.73,
+              "end_sec": 314.21,
+              "speaker": "SPEAKER_01",
+              "page_number": null,
+              "bbox": null,
+              "frame_path": null,
+              "entities": [],
+              "confidence": null,
+              "provenance": {
+                "end_sec": 314.21,
+                "file": "meeting_demo.mp4",
+                "locator_type": "time_range",
+                "multi_speaker": false,
+                "source_id": "src_1347fcb63e98",
+                "speaker_alignment": {
+                  "overlap_ratio": 0.785842,
+                  "overlap_sec": 8.235625,
+                  "segment_duration_sec": 10.48,
+                  "speaker_overlaps": {
+                    "SPEAKER_01": 8.235625
+                  }
+                },
+                "start_sec": 303.73,
+                "transcript_segment_id": "seg_0041"
+              },
+              "text_vector_id": "text:ev_1347fcb63e98_speech_0041",
+              "visual_vector_id": null
+            },
+            "selection_role": "direct_anchor"
+          },
+          {
+            "evidence_id": "ev_1347fcb63e98_frame_0005",
+            "origin": "graph_expanded",
+            "origin_seed_id": "ev_1347fcb63e98_speech_0047",
+            "origin_seed_score": 0.571642,
+            "propagated_relevance": 0.432009,
+            "connection_score": 0.944667,
+            "edge_confidence": 0.944667,
+            "hop_count": 1,
+            "reason": "EXPANDED from ev_1347fcb63e98_speech_0047: TEMPORAL_OVERLAP 0.945",
+            "direct": false,
+            "final_score": 0.475273,
+            "reasons": [
+              "EXPANDED from ev_1347fcb63e98_speech_0047: TEMPORAL_OVERLAP 0.945"
+            ],
+            "node": {
+              "id": "ev_1347fcb63e98_frame_0005",
+              "source_id": "src_1347fcb63e98",
+              "modality": "video_frame",
+              "content": null,
+              "start_sec": 360.0,
+              "end_sec": 360.0,
+              "speaker": null,
+              "page_number": null,
+              "bbox": null,
+              "frame_path": "data/cache/src_1347fcb63e98/frames/frame_0005.jpg",
+              "entities": [],
+              "confidence": null,
+              "provenance": {
+                "file": "meeting_demo.mp4",
+                "frame_id": "frame_0005",
+                "locator_type": "video_frame",
+                "source_id": "src_1347fcb63e98",
+                "timestamp_sec": 360.0
+              },
+              "text_vector_id": null,
+              "visual_vector_id": "visual:ev_1347fcb63e98_frame_0005"
+            },
+            "selection_role": "graph_complement"
+          },
+          {
+            "evidence_id": "ev_1347fcb63e98_speech_0047",
+            "channel_scores": {
+              "text": 0.571642
+            },
+            "reasons": [
+              "DIRECT text: 0.572"
+            ],
+            "seed_score": 0.571642,
+            "origin": "direct",
+            "direct": true,
+            "connection_score": 0.0,
+            "final_score": 0.607314,
+            "node": {
+              "id": "ev_1347fcb63e98_speech_0047",
+              "source_id": "src_1347fcb63e98",
+              "modality": "speech",
+              "content": "second and the start of the next window. So you could have a spike of requests getting processed",
+              "start_sec": 353.09,
+              "end_sec": 359.17,
+              "speaker": "SPEAKER_01",
+              "page_number": null,
+              "bbox": null,
+              "frame_path": null,
+              "entities": [],
+              "confidence": null,
+              "provenance": {
+                "end_sec": 359.17,
+                "file": "meeting_demo.mp4",
+                "locator_type": "time_range",
+                "multi_speaker": false,
+                "source_id": "src_1347fcb63e98",
+                "speaker_alignment": {
+                  "overlap_ratio": 1.0,
+                  "overlap_sec": 6.08,
+                  "segment_duration_sec": 6.08,
+                  "speaker_overlaps": {
+                    "SPEAKER_01": 6.08
+                  }
+                },
+                "start_sec": 353.09,
+                "transcript_segment_id": "seg_0047"
+              },
+              "text_vector_id": "text:ev_1347fcb63e98_speech_0047",
+              "visual_vector_id": null
+            },
+            "selection_role": "ranked_fill"
+          },
+          {
+            "evidence_id": "ev_00b5ee2f232b_pdf_p001_b011",
+            "channel_scores": {
+              "text": 0.569829
+            },
+            "reasons": [
+              "DIRECT text: 0.570"
+            ],
+            "seed_score": 0.569829,
+            "origin": "direct",
+            "direct": true,
+            "connection_score": 0.0,
+            "final_score": 0.605863,
+            "node": {
+              "id": "ev_00b5ee2f232b_pdf_p001_b011",
+              "source_id": "src_00b5ee2f232b",
+              "modality": "pdf_text",
+              "content": "recent request counters",
+              "start_sec": null,
+              "end_sec": null,
+              "speaker": null,
+              "page_number": 1,
+              "bbox": [
+                263.913,
+                223.276,
+                342.701,
+                233.581
+              ],
+              "frame_path": null,
+              "entities": [
+                "request"
+              ],
+              "confidence": null,
+              "provenance": {
+                "block_id": "page_001_block_011",
+                "file": "rate_limiter_design.pdf",
+                "locator_type": "pdf_block",
+                "page_number": 1,
+                "source_id": "src_00b5ee2f232b"
+              },
+              "text_vector_id": "text:ev_00b5ee2f232b_pdf_p001_b011",
+              "visual_vector_id": null
+            },
+            "selection_role": "ranked_fill"
+          }
+        ],
+        "group_hits": {
+          "algorithm_explanation": true
+        },
+        "recall_at_5": 1.0,
+        "complete": true,
+        "provenance_completeness": 1.0,
+        "latency_ms": 38.903
+      }
+    },
+    {
+      "question_id": "Q3",
+      "question": "How is high throughput handled and where is that component shown?",
+      "required_groups": [
+        {
+          "name": "throughput_explanation",
+          "required_modality_family": "speech",
+          "acceptable_evidence_ids": [
+            "ev_1347fcb63e98_speech_0072",
+            "ev_1347fcb63e98_speech_0088"
+          ]
+        },
+        {
+          "name": "throughput_visual",
+          "required_modality_family": "visual",
+          "acceptable_evidence_ids": [
+            "ev_1347fcb63e98_frame_0009",
+            "ev_1347fcb63e98_frame_0010",
+            "ev_9899772d9cc4_image",
+            "ev_66bf6ebf0dbc_image"
+          ]
+        }
+      ],
+      "baseline": {
+        "top_results": [
+          {
+            "chunk_id": "baseline_00b5ee2f232b_0009",
+            "text": "t in diagram.\n\nHigh-throughput cache\nTracks recent request usage for fast checks.\nSpeech about request counts + cache box visible in architecture.\n\nHTTP 429\nResponse sent when a request is rate limited.\nSpoken correction/confirmation + rejection path.\n\nLogging\nRecords information for future traffic analysis.\nLogging discussion + long-term storage path.\n\nCross-modal test question\nWhat components make up the rate-limiting design, how are request counts checked, what happens to blocked requests, an",
+            "source_id": "src_00b5ee2f232b",
+            "source_filename": "rate_limiter_design.pdf",
+            "chunk_index": 9,
+            "member_evidence_ids": [
+              "ev_00b5ee2f232b_pdf_p002_b015",
+              "ev_00b5ee2f232b_pdf_p002_b016",
+              "ev_00b5ee2f232b_pdf_p002_b017",
+              "ev_00b5ee2f232b_pdf_p002_b018",
+              "ev_00b5ee2f232b_pdf_p002_b019"
+            ],
+            "score": 0.542408,
+            "raw_distance": 0.45759168209857215
+          },
+          {
+            "chunk_id": "baseline_1347fcb63e98_0015",
+            "text": "efine the rules of the system. So I think some of those details like in the high level design,\n\nit's basically you define like a rule engine which will determine what the size of the window is,\n\nhow many counters do you need within each window? What's the sliding scale over there? Yeah.\n\nOkay, let's get into that. Sure. So at a high level, the rate limiter consists of a few components.\n\nSo as we said at the start of the recording that we will have a server side implementation\n\nright of the rate ",
+            "source_id": "src_1347fcb63e98",
+            "source_filename": "meeting_demo.mp4",
+            "chunk_index": 15,
+            "member_evidence_ids": [
+              "ev_1347fcb63e98_speech_0059",
+              "ev_1347fcb63e98_speech_0060",
+              "ev_1347fcb63e98_speech_0061",
+              "ev_1347fcb63e98_speech_0062",
+              "ev_1347fcb63e98_speech_0063",
+              "ev_1347fcb63e98_speech_0064"
+            ],
+            "score": 0.430523,
+            "raw_distance": 0.5694773583945477
+          },
+          {
+            "chunk_id": "baseline_00b5ee2f232b_0008",
+            "text": " access when configuration has not changed.\nArchitecture concepts for retrieval\n\nConcept\nMeaning in this design\nEvidence a multimodal system can connect\n\nRate limiter middleware\nServer-side gate before API / web servers.\nSpeech about server-side control + visual request path.\n\nRules engine\nDefines how traffic is identified and which rule applies.\nMentions of IP, user ID, geography + rules component in diagram.\n\nHigh-throughput cache\nTracks recent request usage for fast checks.\nSpeech about reque",
+            "source_id": "src_00b5ee2f232b",
+            "source_filename": "rate_limiter_design.pdf",
+            "chunk_index": 8,
+            "member_evidence_ids": [
+              "ev_00b5ee2f232b_pdf_p002_b012",
+              "ev_00b5ee2f232b_pdf_p002_b013",
+              "ev_00b5ee2f232b_pdf_p002_b014",
+              "ev_00b5ee2f232b_pdf_p002_b015",
+              "ev_00b5ee2f232b_pdf_p002_b016"
+            ],
+            "score": 0.428795,
+            "raw_distance": 0.5712054343558106
+          },
+          {
+            "chunk_id": "baseline_00b5ee2f232b_0004",
+            "text": "how many requests a client has consumed.\n\nKeep analytical work off the live request path.\n\nHigh throughput matters because many requests touch this store.\n\nPersist information in long-term storage for future traffic analysis.\n\nCore decision\nThe rate limiter is a gate in front of the API. It combines a rule decision with recent request counts, then forwards or rejects the request.\n\nSynthetic multimodal-RAG test fixture; not an official Exponent document.\nPage 1 of 2\n\nDESIGN NOTES\nRequest Lifecycl",
+            "source_id": "src_00b5ee2f232b",
+            "source_filename": "rate_limiter_design.pdf",
+            "chunk_index": 4,
+            "member_evidence_ids": [
+              "ev_00b5ee2f232b_pdf_p001_b026",
+              "ev_00b5ee2f232b_pdf_p001_b027",
+              "ev_00b5ee2f232b_pdf_p001_b028",
+              "ev_00b5ee2f232b_pdf_p001_b029",
+              "ev_00b5ee2f232b_pdf_p001_b030",
+              "ev_00b5ee2f232b_pdf_p001_b031",
+              "ev_00b5ee2f232b_pdf_p002_b001"
+            ],
+            "score": 0.407846,
+            "raw_distance": 0.592153745316004
+          },
+          {
+            "chunk_id": "baseline_00b5ee2f232b_0001",
+            "text": "SYNTHETIC DEMO REFERENCE DOCUMENT\nRate Limiter Architecture\n\nA compact system-design reference for a server-side rate limiter that protects API and web servers by applying\nconfigurable rules, tracking recent request usage, and rejecting excessive traffic.\n\nServer-side middleware\nRules engine\nHigh-throughput cache\nHTTP 429\nLogging\n\nHIGH-LEVEL REQUEST PATH\nClients\nRate Limiter\n\nAPI / Web Servers\n>\n>\n\nserver-side middleware\n\nRules Engine\n\nHigh-Throughput Cache\n\nLogging Service\n\nIP / User ID / geogr",
+            "source_id": "src_00b5ee2f232b",
+            "source_filename": "rate_limiter_design.pdf",
+            "chunk_index": 1,
+            "member_evidence_ids": [
+              "ev_00b5ee2f232b_pdf_p001_b001",
+              "ev_00b5ee2f232b_pdf_p001_b002",
+              "ev_00b5ee2f232b_pdf_p001_b003",
+              "ev_00b5ee2f232b_pdf_p001_b004",
+              "ev_00b5ee2f232b_pdf_p001_b005",
+              "ev_00b5ee2f232b_pdf_p001_b006",
+              "ev_00b5ee2f232b_pdf_p001_b007",
+              "ev_00b5ee2f232b_pdf_p001_b008",
+              "ev_00b5ee2f232b_pdf_p001_b009",
+              "ev_00b5ee2f232b_pdf_p001_b010"
+            ],
+            "score": 0.345962,
+            "raw_distance": 0.6540383576184139
+          }
+        ],
+        "group_hits": {
+          "throughput_explanation": false,
+          "throughput_visual": false
+        },
+        "recall_at_5": 0.0,
+        "complete": false,
+        "provenance_completeness": 0.0,
+        "latency_ms": 16.055
+      },
+      "evidence_graph": {
+        "top_results": [
+          {
+            "evidence_id": "ev_00b5ee2f232b_pdf_p001_b028",
+            "channel_scores": {
+              "text": 0.525503,
+              "entity": 1.0
+            },
+            "reasons": [
+              "DIRECT text: 0.526",
+              "DIRECT entity: 1.000 (throughput)"
+            ],
+            "seed_score": 1.0,
+            "origin": "direct",
+            "direct": true,
+            "connection_score": 0.0,
+            "final_score": 0.95,
+            "node": {
+              "id": "ev_00b5ee2f232b_pdf_p001_b028",
+              "source_id": "src_00b5ee2f232b",
+              "modality": "pdf_text",
+              "content": "High throughput matters because many requests touch this store.",
+              "start_sec": null,
+              "end_sec": null,
+              "speaker": null,
+              "page_number": 1,
+              "bbox": [
+                60.52,
+                440.35,
+                280.6,
+                450.792
+              ],
+              "frame_path": null,
+              "entities": [
+                "throughput"
+              ],
+              "confidence": null,
+              "provenance": {
+                "block_id": "page_001_block_028",
+                "file": "rate_limiter_design.pdf",
+                "locator_type": "pdf_block",
+                "page_number": 1,
+                "source_id": "src_00b5ee2f232b"
+              },
+              "text_vector_id": "text:ev_00b5ee2f232b_pdf_p001_b028",
+              "visual_vector_id": null
+            },
+            "selection_role": "direct_anchor"
+          },
+          {
+            "evidence_id": "ev_1347fcb63e98_frame_0009",
+            "channel_scores": {
+              "visual": 0.258207,
+              "entity": 1.0
+            },
+            "reasons": [
+              "DIRECT visual: 0.258",
+              "DIRECT entity: 1.000 (throughput)"
+            ],
+            "seed_score": 1.0,
+            "origin": "direct",
+            "direct": true,
+            "connection_score": 0.0,
+            "final_score": 0.95,
+            "node": {
+              "id": "ev_1347fcb63e98_frame_0009",
+              "source_id": "src_1347fcb63e98",
+              "modality": "video_frame",
+              "content": null,
+              "start_sec": 720.0,
+              "end_sec": 720.0,
+              "speaker": null,
+              "page_number": null,
+              "bbox": null,
+              "frame_path": "data/cache/src_1347fcb63e98/frames/frame_0009.jpg",
+              "entities": [
+                "cache",
+                "client",
+                "rate limiter",
+                "rules engine",
+                "throughput",
+                "web server"
+              ],
+              "confidence": null,
+              "provenance": {
+                "file": "meeting_demo.mp4",
+                "frame_id": "frame_0009",
+                "locator_type": "video_frame",
+                "source_id": "src_1347fcb63e98",
+                "timestamp_sec": 720.0
+              },
+              "text_vector_id": null,
+              "visual_vector_id": "visual:ev_1347fcb63e98_frame_0009"
+            },
+            "selection_role": "direct_anchor"
+          },
+          {
+            "evidence_id": "ev_1347fcb63e98_ocr_frame_0009_009",
+            "origin": "graph_expanded",
+            "origin_seed_id": "ev_00b5ee2f232b_pdf_p001_b028",
+            "origin_seed_score": 1.0,
+            "propagated_relevance": 0.8,
+            "connection_score": 1.0,
+            "edge_confidence": 1.0,
+            "hop_count": 1,
+            "reason": "EXPANDED from ev_00b5ee2f232b_pdf_p001_b028: ENTITY_OVERLAP 1.000",
+            "direct": false,
+            "final_score": 0.72,
+            "reasons": [
+              "EXPANDED from ev_00b5ee2f232b_pdf_p001_b028: ENTITY_OVERLAP 1.000"
+            ],
+            "node": {
+              "id": "ev_1347fcb63e98_ocr_frame_0009_009",
+              "source_id": "src_1347fcb63e98",
+              "modality": "ocr_text",
+              "content": "throughput)",
+              "start_sec": 720.0,
+              "end_sec": 720.0,
+              "speaker": null,
+              "page_number": null,
+              "bbox": [
+                808.0,
+                406.0,
+                868.0,
+                421.0
+              ],
+              "frame_path": "data/cache/src_1347fcb63e98/frames/frame_0009.jpg",
+              "entities": [
+                "throughput"
+              ],
+              "confidence": 0.994443,
+              "provenance": {
+                "file": "meeting_demo.mp4",
+                "frame_id": "frame_0009",
+                "locator_type": "frame_ocr_region",
+                "ocr_engine": "PaddleOCR",
+                "ocr_region_id": "ocr_frame_0009_009",
+                "source_id": "src_1347fcb63e98",
+                "timestamp_sec": 720.0
+              },
+              "text_vector_id": "text:ev_1347fcb63e98_ocr_frame_0009_009",
+              "visual_vector_id": null
+            },
+            "selection_role": "graph_complement"
+          },
+          {
+            "evidence_id": "ev_1347fcb63e98_frame_0010",
+            "channel_scores": {
+              "entity": 1.0
+            },
+            "reasons": [
+              "DIRECT entity: 1.000 (throughput)"
+            ],
+            "seed_score": 1.0,
+            "origin": "direct",
+            "direct": true,
+            "connection_score": 0.0,
+            "final_score": 0.95,
+            "node": {
+              "id": "ev_1347fcb63e98_frame_0010",
+              "source_id": "src_1347fcb63e98",
+              "modality": "video_frame",
+              "content": null,
+              "start_sec": 840.0,
+              "end_sec": 840.0,
+              "speaker": null,
+              "page_number": null,
+              "bbox": null,
+              "frame_path": "data/cache/src_1347fcb63e98/frames/frame_0010.jpg",
+              "entities": [
+                "cache",
+                "client",
+                "logging",
+                "long term storage",
+                "rate limiter",
+                "rules cache",
+                "rules engine",
+                "throughput",
+                "web server"
+              ],
+              "confidence": null,
+              "provenance": {
+                "file": "meeting_demo.mp4",
+                "frame_id": "frame_0010",
+                "locator_type": "video_frame",
+                "source_id": "src_1347fcb63e98",
+                "timestamp_sec": 840.0
+              },
+              "text_vector_id": null,
+              "visual_vector_id": "visual:ev_1347fcb63e98_frame_0010"
+            },
+            "selection_role": "ranked_fill"
+          },
+          {
+            "evidence_id": "ev_1347fcb63e98_frame_0011",
+            "channel_scores": {
+              "visual": 0.257366,
+              "entity": 1.0
+            },
+            "reasons": [
+              "DIRECT visual: 0.257",
+              "DIRECT entity: 1.000 (throughput)"
+            ],
+            "seed_score": 1.0,
+            "origin": "direct",
+            "direct": true,
+            "connection_score": 0.0,
+            "final_score": 0.95,
+            "node": {
+              "id": "ev_1347fcb63e98_frame_0011",
+              "source_id": "src_1347fcb63e98",
+              "modality": "video_frame",
+              "content": null,
+              "start_sec": 960.0,
+              "end_sec": 960.0,
+              "speaker": null,
+              "page_number": null,
+              "bbox": null,
+              "frame_path": "data/cache/src_1347fcb63e98/frames/frame_0011.jpg",
+              "entities": [
+                "cache",
+                "client",
+                "load balancer",
+                "logging",
+                "long term storage",
+                "rate limiter",
+                "request",
+                "rules cache",
+                "rules engine",
+                "server",
+                "throughput",
+                "web server"
+              ],
+              "confidence": null,
+              "provenance": {
+                "file": "meeting_demo.mp4",
+                "frame_id": "frame_0011",
+                "locator_type": "video_frame",
+                "source_id": "src_1347fcb63e98",
+                "timestamp_sec": 960.0
+              },
+              "text_vector_id": null,
+              "visual_vector_id": "visual:ev_1347fcb63e98_frame_0011"
+            },
+            "selection_role": "ranked_fill"
+          }
+        ],
+        "group_hits": {
+          "throughput_explanation": false,
+          "throughput_visual": true
+        },
+        "recall_at_5": 0.5,
+        "complete": false,
+        "provenance_completeness": 1.0,
+        "latency_ms": 42.466
+      }
+    },
+    {
+      "question_id": "Q4",
+      "question": "What happens to blocked requests, and where is that behavior documented?",
+      "required_groups": [
+        {
+          "name": "spoken_block_behavior",
+          "required_modality_family": "speech",
+          "acceptable_evidence_ids": [
+            "ev_1347fcb63e98_speech_0090",
+            "ev_1347fcb63e98_speech_0091"
+          ]
+        },
+        {
+          "name": "documented_block_behavior",
+          "required_modality_family": "document",
+          "acceptable_evidence_ids": [
+            "ev_00b5ee2f232b_pdf_p001_b013",
+            "ev_00b5ee2f232b_pdf_p002_b008"
+          ]
+        }
+      ],
+      "baseline": {
+        "top_results": [
+          {
+            "chunk_id": "baseline_1347fcb63e98_0039",
+            "text": "ild some rate time mechanisms within your\n\nsystem yourself to try after like a few seconds to see if the request is then going through. So these\n\nare the few things you could do as a user to kind of prevent yourself from getting blocked.\n\nExponent\n\nOkay. I think this is a good place for us to stop. Thank you so much as I thought. Any thoughts\n\nthat you have post the interview? No, no specific thoughts. I think again, like rate limit or any kind\n\nof system design interview is an open-ended questi",
+            "source_id": "src_1347fcb63e98",
+            "source_filename": "meeting_demo.mp4",
+            "chunk_index": 39,
+            "member_evidence_ids": [
+              "ev_1347fcb63e98_speech_0151",
+              "ev_1347fcb63e98_speech_0152",
+              "ev_1347fcb63e98_speech_0153",
+              "ev_1347fcb63e98_ocr_frame_0014_001",
+              "ev_1347fcb63e98_speech_0154",
+              "ev_1347fcb63e98_speech_0155",
+              "ev_1347fcb63e98_speech_0156"
+            ],
+            "score": 0.536144,
+            "raw_distance": 0.4638555333382869
+          },
+          {
+            "chunk_id": "baseline_1347fcb63e98_0022",
+            "text": ", the rate limiter needs to see whether\n\nRules Engine\n\nclient(s)\n\nAPI rate limiter\n\nsuccess\n\nApi/web servers\n\n200HTTP\n\nfailure 529 HTTP code\n\nCache(high\n\nthroughput)\n\na particular user, if you are blocking, let's say based on IP, how many requests have they already\n\nconsumed within the given counter? Yeah. Also, I think you mentioned this before. I think you mentioned\n\nit's a 429 HTTP code. I just want to make sure that you mean the same thing over here. Sorry. Yeah.\n\nYeah. Yeah. And then from h",
+            "source_id": "src_1347fcb63e98",
+            "source_filename": "meeting_demo.mp4",
+            "chunk_index": 22,
+            "member_evidence_ids": [
+              "ev_1347fcb63e98_speech_0088",
+              "ev_1347fcb63e98_ocr_frame_0009_001",
+              "ev_1347fcb63e98_ocr_frame_0009_002",
+              "ev_1347fcb63e98_ocr_frame_0009_003",
+              "ev_1347fcb63e98_ocr_frame_0009_004",
+              "ev_1347fcb63e98_ocr_frame_0009_005",
+              "ev_1347fcb63e98_ocr_frame_0009_006",
+              "ev_1347fcb63e98_ocr_frame_0009_007",
+              "ev_1347fcb63e98_ocr_frame_0009_008",
+              "ev_1347fcb63e98_ocr_frame_0009_009",
+              "ev_1347fcb63e98_speech_0089",
+              "ev_1347fcb63e98_speech_0090",
+              "ev_1347fcb63e98_speech_0091",
+              "ev_1347fcb63e98_speech_0092"
+            ],
+            "score": 0.518735,
+            "raw_distance": 0.4812647065248712
+          },
+          {
+            "chunk_id": "baseline_1347fcb63e98_0005",
+            "text": "ic. User IDs can kind of be fake to\n\ncreate new accounts and then it's difficult to distinguish a good user ID from a bad one\n\nwhereas it's more easier on the IP side. And I think we need to inform the user once we do\n\nblock them. So the HTTP layer has a built-in protocol for that. So we send the user from the server,\n\nwe send a 429 status response code back to the client informing that they've been kind of throttle\n\nwhen they've been blocked. And I think we should obviously have some kind of a ",
+            "source_id": "src_1347fcb63e98",
+            "source_filename": "meeting_demo.mp4",
+            "chunk_index": 5,
+            "member_evidence_ids": [
+              "ev_1347fcb63e98_speech_0017",
+              "ev_1347fcb63e98_speech_0018",
+              "ev_1347fcb63e98_speech_0019",
+              "ev_1347fcb63e98_speech_0020",
+              "ev_1347fcb63e98_speech_0021",
+              "ev_1347fcb63e98_speech_0022"
+            ],
+            "score": 0.516208,
+            "raw_distance": 0.48379234136675564
+          },
+          {
+            "chunk_id": "baseline_1347fcb63e98_0021",
+            "text": "ers. So if we are like blocking the engine like a 529\n\nHTTP code out here. So success, we would kind of go back and then the server would respond back\n\nand then eventually the middleware would go back here. So you would get a 200 response\n\nor as I mentioned, another thing we would need over here is a cache. So you have a cache which has a\n\nhigh throughput. The reason for this cache is that the API, the rate limiter needs to see whether\n\nRules Engine\n\nclient(s)\n\nAPI rate limiter\n\nsuccess\n\nApi/web",
+            "source_id": "src_1347fcb63e98",
+            "source_filename": "meeting_demo.mp4",
+            "chunk_index": 21,
+            "member_evidence_ids": [
+              "ev_1347fcb63e98_speech_0084",
+              "ev_1347fcb63e98_speech_0085",
+              "ev_1347fcb63e98_speech_0086",
+              "ev_1347fcb63e98_speech_0087",
+              "ev_1347fcb63e98_speech_0088",
+              "ev_1347fcb63e98_ocr_frame_0009_001",
+              "ev_1347fcb63e98_ocr_frame_0009_002",
+              "ev_1347fcb63e98_ocr_frame_0009_003",
+              "ev_1347fcb63e98_ocr_frame_0009_004",
+              "ev_1347fcb63e98_ocr_frame_0009_005"
+            ],
+            "score": 0.512409,
+            "raw_distance": 0.48759078687652424
+          },
+          {
+            "chunk_id": "baseline_00b5ee2f232b_0010",
+            "text": "ke up the rate-limiting design, how are request counts checked, what happens to blocked requests, and where is the same\narchitecture shown visually?\n\nWording is intentionally similar in meaning but not identical to the spoken explanation, to support realistic semantic retrieval tests.\n\nSynthetic multimodal-RAG test fixture; not an official Exponent document.\nPage 2 of 2",
+            "source_id": "src_00b5ee2f232b",
+            "source_filename": "rate_limiter_design.pdf",
+            "chunk_index": 10,
+            "member_evidence_ids": [
+              "ev_00b5ee2f232b_pdf_p002_b019",
+              "ev_00b5ee2f232b_pdf_p002_b020",
+              "ev_00b5ee2f232b_pdf_p002_b021"
+            ],
+            "score": 0.511841,
+            "raw_distance": 0.4881592110141231
+          }
+        ],
+        "group_hits": {
+          "spoken_block_behavior": true,
+          "documented_block_behavior": false
+        },
+        "recall_at_5": 0.5,
+        "complete": false,
+        "provenance_completeness": 0.25,
+        "latency_ms": 16.346
+      },
+      "evidence_graph": {
+        "top_results": [
+          {
+            "evidence_id": "ev_1347fcb63e98_speech_0089",
+            "channel_scores": {
+              "text": 0.663058
+            },
+            "reasons": [
+              "DIRECT text: 0.663"
+            ],
+            "seed_score": 0.663058,
+            "origin": "direct",
+            "direct": true,
+            "connection_score": 0.0,
+            "final_score": 0.680446,
+            "node": {
+              "id": "ev_1347fcb63e98_speech_0089",
+              "source_id": "src_1347fcb63e98",
+              "modality": "speech",
+              "content": "a particular user, if you are blocking, let's say based on IP, how many requests have they already",
+              "start_sec": 724.94,
+              "end_sec": 733.9,
+              "speaker": "SPEAKER_01",
+              "page_number": null,
+              "bbox": null,
+              "frame_path": null,
+              "entities": [],
+              "confidence": null,
+              "provenance": {
+                "end_sec": 733.9,
+                "file": "meeting_demo.mp4",
+                "locator_type": "time_range",
+                "multi_speaker": false,
+                "source_id": "src_1347fcb63e98",
+                "speaker_alignment": {
+                  "overlap_ratio": 0.770229,
+                  "overlap_sec": 6.90125,
+                  "segment_duration_sec": 8.96,
+                  "speaker_overlaps": {
+                    "SPEAKER_01": 6.90125
+                  }
+                },
+                "start_sec": 724.94,
+                "transcript_segment_id": "seg_0089"
+              },
+              "text_vector_id": "text:ev_1347fcb63e98_speech_0089",
+              "visual_vector_id": null
+            },
+            "selection_role": "direct_anchor"
+          },
+          {
+            "evidence_id": "ev_1347fcb63e98_speech_0022",
+            "channel_scores": {
+              "text": 0.581031
+            },
+            "reasons": [
+              "DIRECT text: 0.581"
+            ],
+            "seed_score": 0.581031,
+            "origin": "direct",
+            "direct": true,
+            "connection_score": 0.0,
+            "final_score": 0.614825,
+            "node": {
+              "id": "ev_1347fcb63e98_speech_0022",
+              "source_id": "src_1347fcb63e98",
+              "modality": "speech",
+              "content": "when they've been blocked. And I think we should obviously have some kind of a logging mechanism",
+              "start_sec": 167.49,
+              "end_sec": 174.29,
+              "speaker": "SPEAKER_01",
+              "page_number": null,
+              "bbox": null,
+              "frame_path": null,
+              "entities": [
+                "logging"
+              ],
+              "confidence": null,
+              "provenance": {
+                "end_sec": 174.29,
+                "file": "meeting_demo.mp4",
+                "locator_type": "time_range",
+                "multi_speaker": false,
+                "source_id": "src_1347fcb63e98",
+                "speaker_alignment": {
+                  "overlap_ratio": 0.90818,
+                  "overlap_sec": 6.175625,
+                  "segment_duration_sec": 6.8,
+                  "speaker_overlaps": {
+                    "SPEAKER_01": 6.175625
+                  }
+                },
+                "start_sec": 167.49,
+                "transcript_segment_id": "seg_0022"
+              },
+              "text_vector_id": "text:ev_1347fcb63e98_speech_0022",
+              "visual_vector_id": null
+            },
+            "selection_role": "direct_anchor"
+          },
+          {
+            "evidence_id": "ev_1347fcb63e98_speech_0075",
+            "channel_scores": {
+              "text": 0.560443
+            },
+            "reasons": [
+              "DIRECT text: 0.560"
+            ],
+            "seed_score": 0.560443,
+            "origin": "direct",
+            "direct": true,
+            "connection_score": 0.0,
+            "final_score": 0.598354,
+            "node": {
+              "id": "ev_1347fcb63e98_speech_0075",
+              "source_id": "src_1347fcb63e98",
+              "modality": "speech",
+              "content": "the request or not. So we can block if needed based on let's say IP. And then in parallel we can have",
+              "start_sec": 568.61,
+              "end_sec": 576.45,
+              "speaker": "SPEAKER_01",
+              "page_number": null,
+              "bbox": null,
+              "frame_path": null,
+              "entities": [
+                "request"
+              ],
+              "confidence": null,
+              "provenance": {
+                "end_sec": 576.45,
+                "file": "meeting_demo.mp4",
+                "locator_type": "time_range",
+                "multi_speaker": false,
+                "source_id": "src_1347fcb63e98",
+                "speaker_alignment": {
+                  "overlap_ratio": 0.939732,
+                  "overlap_sec": 7.3675,
+                  "segment_duration_sec": 7.84,
+                  "speaker_overlaps": {
+                    "SPEAKER_00": 0.016875,
+                    "SPEAKER_01": 7.3675,
+                    "SPEAKER_04": 0.354375
+                  }
+                },
+                "start_sec": 568.61,
+                "transcript_segment_id": "seg_0075"
+              },
+              "text_vector_id": "text:ev_1347fcb63e98_speech_0075",
+              "visual_vector_id": null
+            },
+            "selection_role": "ranked_fill"
+          },
+          {
+            "evidence_id": "ev_1347fcb63e98_ocr_frame_0011_006",
+            "channel_scores": {
+              "text": 0.554972
+            },
+            "reasons": [
+              "DIRECT text: 0.555"
+            ],
+            "seed_score": 0.554972,
+            "origin": "direct",
+            "direct": true,
+            "connection_score": 0.0,
+            "final_score": 0.593978,
+            "node": {
+              "id": "ev_1347fcb63e98_ocr_frame_0011_006",
+              "source_id": "src_1347fcb63e98",
+              "modality": "ocr_text",
+              "content": "send 429 HTTP request on blocking",
+              "start_sec": 960.0,
+              "end_sec": 960.0,
+              "speaker": null,
+              "page_number": null,
+              "bbox": [
+                412.0,
+                123.0,
+                597.0,
+                140.0
+              ],
+              "frame_path": "data/cache/src_1347fcb63e98/frames/frame_0011.jpg",
+              "entities": [
+                "request"
+              ],
+              "confidence": 0.976409,
+              "provenance": {
+                "file": "meeting_demo.mp4",
+                "frame_id": "frame_0011",
+                "locator_type": "frame_ocr_region",
+                "ocr_engine": "PaddleOCR",
+                "ocr_region_id": "ocr_frame_0011_006",
+                "source_id": "src_1347fcb63e98",
+                "timestamp_sec": 960.0
+              },
+              "text_vector_id": "text:ev_1347fcb63e98_ocr_frame_0011_006",
+              "visual_vector_id": null
+            },
+            "selection_role": "ranked_fill"
+          },
+          {
+            "evidence_id": "ev_1347fcb63e98_ocr_frame_0012_006",
+            "channel_scores": {
+              "text": 0.554972
+            },
+            "reasons": [
+              "DIRECT text: 0.555"
+            ],
+            "seed_score": 0.554972,
+            "origin": "direct",
+            "direct": true,
+            "connection_score": 0.0,
+            "final_score": 0.593978,
+            "node": {
+              "id": "ev_1347fcb63e98_ocr_frame_0012_006",
+              "source_id": "src_1347fcb63e98",
+              "modality": "ocr_text",
+              "content": "send 429 HTTP request on blocking",
+              "start_sec": 1080.0,
+              "end_sec": 1080.0,
+              "speaker": null,
+              "page_number": null,
+              "bbox": [
+                412.0,
+                123.0,
+                597.0,
+                140.0
+              ],
+              "frame_path": "data/cache/src_1347fcb63e98/frames/frame_0012.jpg",
+              "entities": [
+                "request"
+              ],
+              "confidence": 0.971713,
+              "provenance": {
+                "file": "meeting_demo.mp4",
+                "frame_id": "frame_0012",
+                "locator_type": "frame_ocr_region",
+                "ocr_engine": "PaddleOCR",
+                "ocr_region_id": "ocr_frame_0012_006",
+                "source_id": "src_1347fcb63e98",
+                "timestamp_sec": 1080.0
+              },
+              "text_vector_id": "text:ev_1347fcb63e98_ocr_frame_0012_006",
+              "visual_vector_id": null
+            },
+            "selection_role": "ranked_fill"
+          }
+        ],
+        "group_hits": {
+          "spoken_block_behavior": false,
+          "documented_block_behavior": false
+        },
+        "recall_at_5": 0.0,
+        "complete": false,
+        "provenance_completeness": 0.0,
+        "latency_ms": 46.214
+      }
+    },
+    {
+      "question_id": "Q5",
+      "question": "Where is the logging path shown and how is it described in the design document?",
+      "required_groups": [
+        {
+          "name": "logging_visual",
+          "required_modality_family": "visual",
+          "acceptable_evidence_ids": [
+            "ev_1347fcb63e98_frame_0010",
+            "ev_1347fcb63e98_frame_0011",
+            "ev_1347fcb63e98_frame_0012",
+            "ev_9899772d9cc4_image",
+            "ev_66bf6ebf0dbc_image"
+          ]
+        },
+        {
+          "name": "logging_document",
+          "required_modality_family": "document",
+          "acceptable_evidence_ids": [
+            "ev_00b5ee2f232b_pdf_p001_b023",
+            "ev_00b5ee2f232b_pdf_p002_b009",
+            "ev_00b5ee2f232b_pdf_p002_b018"
+          ]
+        }
+      ],
+      "baseline": {
+        "top_results": [
+          {
+            "chunk_id": "baseline_00b5ee2f232b_0007",
+            "text": "s HTTP 429; successful requests continue through the application path.\n\n6\nRecord events\nA logging path keeps information for future analysis and long-term storage.\n\nOptimization: cache the rules\n\nRules Engine\n>\nRules Cache\n>\nRate Limiter\n\nIf the limiter contacts the rules engine on every request, rule lookup becomes part of the hot path. A cache between the rules engine and\nlimiter provides faster access when configuration has not changed.\nArchitecture concepts for retrieval\n\nConcept\nMeaning in ",
+            "source_id": "src_00b5ee2f232b",
+            "source_filename": "rate_limiter_design.pdf",
+            "chunk_index": 7,
+            "member_evidence_ids": [
+              "ev_00b5ee2f232b_pdf_p002_b008",
+              "ev_00b5ee2f232b_pdf_p002_b009",
+              "ev_00b5ee2f232b_pdf_p002_b010",
+              "ev_00b5ee2f232b_pdf_p002_b011",
+              "ev_00b5ee2f232b_pdf_p002_b012",
+              "ev_00b5ee2f232b_pdf_p002_b013"
+            ],
+            "score": 0.426599,
+            "raw_distance": 0.5734006610374827
+          },
+          {
+            "chunk_id": "baseline_66bf6ebf0dbc_0001",
+            "text": "API Rate limiter\n\nRules Engine\n\nRequirements\n\nserver side\n\nblock based IP,userlD etc\n\nsend 429 HTTP request on blocking\n\nLogging mechanism for future use\n\nRules cache\n\nclient(s)\n\nLoad balancer\n\nAP'\n\nsuccess\n\nApi/web servers\n\nAPI rate limiter\n\nfailure 429 HTTP code\n\nCache(high\n\nthroughput)\n\nLogging mechanism\n\nLong term storagee\n\n*",
+            "source_id": "src_66bf6ebf0dbc",
+            "source_filename": "architecture_02.png",
+            "chunk_index": 1,
+            "member_evidence_ids": [
+              "ev_66bf6ebf0dbc_ocr_image_001",
+              "ev_66bf6ebf0dbc_ocr_image_002",
+              "ev_66bf6ebf0dbc_ocr_image_003",
+              "ev_66bf6ebf0dbc_ocr_image_004",
+              "ev_66bf6ebf0dbc_ocr_image_005",
+              "ev_66bf6ebf0dbc_ocr_image_006",
+              "ev_66bf6ebf0dbc_ocr_image_007",
+              "ev_66bf6ebf0dbc_ocr_image_008",
+              "ev_66bf6ebf0dbc_ocr_image_009",
+              "ev_66bf6ebf0dbc_ocr_image_010",
+              "ev_66bf6ebf0dbc_ocr_image_011",
+              "ev_66bf6ebf0dbc_ocr_image_012",
+              "ev_66bf6ebf0dbc_ocr_image_013",
+              "ev_66bf6ebf0dbc_ocr_image_014",
+              "ev_66bf6ebf0dbc_ocr_image_015",
+              "ev_66bf6ebf0dbc_ocr_image_016",
+              "ev_66bf6ebf0dbc_ocr_image_017",
+              "ev_66bf6ebf0dbc_ocr_image_018",
+              "ev_66bf6ebf0dbc_ocr_image_019",
+              "ev_66bf6ebf0dbc_ocr_image_020"
+            ],
+            "score": 0.296141,
+            "raw_distance": 0.703859364584541
+          },
+          {
+            "chunk_id": "baseline_1347fcb63e98_0026",
+            "text": "pi/web servers\n\n200HTTP\n\nfailure 429 HTTP code\n\nCache(high\n\nthroughput)\n\nLogging mechanism\n\nLong term storage\n\nrequirements again, so that it's a server side we can, you know, based on IP user ID.\n\nSeptember, and the same thing, which would be a request of logging and logging.\n\nYeah. Okay. Okay. So how would you modify this for, for distributed environment?\n\nThat's a very good question. So this system right now is based on a single, single, you know,\n\ndata center environment, where all the reque",
+            "source_id": "src_1347fcb63e98",
+            "source_filename": "meeting_demo.mp4",
+            "chunk_index": 26,
+            "member_evidence_ids": [
+              "ev_1347fcb63e98_ocr_frame_0010_007",
+              "ev_1347fcb63e98_ocr_frame_0010_008",
+              "ev_1347fcb63e98_ocr_frame_0010_009",
+              "ev_1347fcb63e98_ocr_frame_0010_010",
+              "ev_1347fcb63e98_ocr_frame_0010_011",
+              "ev_1347fcb63e98_ocr_frame_0010_012",
+              "ev_1347fcb63e98_ocr_frame_0010_013",
+              "ev_1347fcb63e98_speech_0104",
+              "ev_1347fcb63e98_speech_0105",
+              "ev_1347fcb63e98_speech_0106",
+              "ev_1347fcb63e98_speech_0107",
+              "ev_1347fcb63e98_speech_0108"
+            ],
+            "score": 0.270889,
+            "raw_distance": 0.7291113532940279
+          },
+          {
+            "chunk_id": "baseline_00b5ee2f232b_0008",
+            "text": " access when configuration has not changed.\nArchitecture concepts for retrieval\n\nConcept\nMeaning in this design\nEvidence a multimodal system can connect\n\nRate limiter middleware\nServer-side gate before API / web servers.\nSpeech about server-side control + visual request path.\n\nRules engine\nDefines how traffic is identified and which rule applies.\nMentions of IP, user ID, geography + rules component in diagram.\n\nHigh-throughput cache\nTracks recent request usage for fast checks.\nSpeech about reque",
+            "source_id": "src_00b5ee2f232b",
+            "source_filename": "rate_limiter_design.pdf",
+            "chunk_index": 8,
+            "member_evidence_ids": [
+              "ev_00b5ee2f232b_pdf_p002_b012",
+              "ev_00b5ee2f232b_pdf_p002_b013",
+              "ev_00b5ee2f232b_pdf_p002_b014",
+              "ev_00b5ee2f232b_pdf_p002_b015",
+              "ev_00b5ee2f232b_pdf_p002_b016"
+            ],
+            "score": 0.262983,
+            "raw_distance": 0.7370167606916127
+          },
+          {
+            "chunk_id": "baseline_9899772d9cc4_0001",
+            "text": "Rules Engine\n\nRules cache\n\nclient(s)\n\nAPI rate limiter\n\nsuccess\n\nApi/web servers\n\n200HTTP\n\nfailure 429 HTTP code\n\nCache(high\n\nthroughput)\n\nLogging mechanism\n\nLong term storage",
+            "source_id": "src_9899772d9cc4",
+            "source_filename": "architecture_01.png",
+            "chunk_index": 1,
+            "member_evidence_ids": [
+              "ev_9899772d9cc4_ocr_image_001",
+              "ev_9899772d9cc4_ocr_image_002",
+              "ev_9899772d9cc4_ocr_image_003",
+              "ev_9899772d9cc4_ocr_image_004",
+              "ev_9899772d9cc4_ocr_image_005",
+              "ev_9899772d9cc4_ocr_image_006",
+              "ev_9899772d9cc4_ocr_image_007",
+              "ev_9899772d9cc4_ocr_image_008",
+              "ev_9899772d9cc4_ocr_image_009",
+              "ev_9899772d9cc4_ocr_image_010",
+              "ev_9899772d9cc4_ocr_image_011",
+              "ev_9899772d9cc4_ocr_image_012"
+            ],
+            "score": 0.255223,
+            "raw_distance": 0.7447772986307148
+          }
+        ],
+        "group_hits": {
+          "logging_visual": false,
+          "logging_document": true
+        },
+        "recall_at_5": 0.5,
+        "complete": false,
+        "provenance_completeness": 0.3333333333333333,
+        "latency_ms": 16.183
+      },
+      "evidence_graph": {
+        "top_results": [
+          {
+            "evidence_id": "ev_00b5ee2f232b_pdf_p001_b003",
+            "channel_scores": {
+              "entity": 1.0
+            },
+            "reasons": [
+              "DIRECT entity: 1.000 (logging)"
+            ],
+            "seed_score": 1.0,
+            "origin": "direct",
+            "direct": true,
+            "connection_score": 0.0,
+            "final_score": 0.95,
+            "node": {
+              "id": "ev_00b5ee2f232b_pdf_p001_b003",
+              "source_id": "src_00b5ee2f232b",
+              "modality": "pdf_text",
+              "content": "Server-side middleware\nRules engine\nHigh-throughput cache\nHTTP 429\nLogging",
+              "start_sec": null,
+              "end_sec": null,
+              "speaker": null,
+              "page_number": 1,
+              "bbox": [
+                50.52,
+                112.281,
+                423.05,
+                122.884
+              ],
+              "frame_path": null,
+              "entities": [
+                "cache",
+                "http 429",
+                "logging",
+                "middleware",
+                "rules engine",
+                "server"
+              ],
+              "confidence": null,
+              "provenance": {
+                "block_id": "page_001_block_003",
+                "file": "rate_limiter_design.pdf",
+                "locator_type": "pdf_block",
+                "page_number": 1,
+                "source_id": "src_00b5ee2f232b"
+              },
+              "text_vector_id": "text:ev_00b5ee2f232b_pdf_p001_b003",
+              "visual_vector_id": null
+            },
+            "selection_role": "direct_anchor"
+          },
+          {
+            "evidence_id": "ev_00b5ee2f232b_pdf_p001_b009",
+            "channel_scores": {
+              "entity": 1.0
+            },
+            "reasons": [
+              "DIRECT entity: 1.000 (logging)"
+            ],
+            "seed_score": 1.0,
+            "origin": "direct",
+            "direct": true,
+            "connection_score": 0.0,
+            "final_score": 0.95,
+            "node": {
+              "id": "ev_00b5ee2f232b_pdf_p001_b009",
+              "source_id": "src_00b5ee2f232b",
+              "modality": "pdf_text",
+              "content": "Logging Service",
+              "start_sec": null,
+              "end_sec": null,
+              "speaker": null,
+              "page_number": 1,
+              "bbox": [
+                440.155,
+                208.639,
+                517.955,
+                222.409
+              ],
+              "frame_path": null,
+              "entities": [
+                "logging"
+              ],
+              "confidence": null,
+              "provenance": {
+                "block_id": "page_001_block_009",
+                "file": "rate_limiter_design.pdf",
+                "locator_type": "pdf_block",
+                "page_number": 1,
+                "source_id": "src_00b5ee2f232b"
+              },
+              "text_vector_id": "text:ev_00b5ee2f232b_pdf_p001_b009",
+              "visual_vector_id": null
+            },
+            "selection_role": "direct_anchor"
+          },
+          {
+            "evidence_id": "ev_1347fcb63e98_ocr_frame_0010_013",
+            "origin": "graph_expanded",
+            "origin_seed_id": "ev_00b5ee2f232b_pdf_p002_b009",
+            "origin_seed_score": 1.0,
+            "propagated_relevance": 0.8,
+            "connection_score": 1.0,
+            "edge_confidence": 1.0,
+            "hop_count": 1,
+            "reason": "EXPANDED from ev_00b5ee2f232b_pdf_p002_b009: ENTITY_OVERLAP 1.000",
+            "direct": false,
+            "final_score": 0.72,
+            "reasons": [
+              "EXPANDED from ev_00b5ee2f232b_pdf_p002_b009: ENTITY_OVERLAP 1.000"
+            ],
+            "node": {
+              "id": "ev_1347fcb63e98_ocr_frame_0010_013",
+              "source_id": "src_1347fcb63e98",
+              "modality": "ocr_text",
+              "content": "Long term storage",
+              "start_sec": 840.0,
+              "end_sec": 840.0,
+              "speaker": null,
+              "page_number": null,
+              "bbox": [
+                791.0,
+                667.0,
+                881.0,
+                680.0
+              ],
+              "frame_path": "data/cache/src_1347fcb63e98/frames/frame_0010.jpg",
+              "entities": [
+                "long term storage"
+              ],
+              "confidence": 0.981854,
+              "provenance": {
+                "file": "meeting_demo.mp4",
+                "frame_id": "frame_0010",
+                "locator_type": "frame_ocr_region",
+                "ocr_engine": "PaddleOCR",
+                "ocr_region_id": "ocr_frame_0010_013",
+                "source_id": "src_1347fcb63e98",
+                "timestamp_sec": 840.0
+              },
+              "text_vector_id": "text:ev_1347fcb63e98_ocr_frame_0010_013",
+              "visual_vector_id": null
+            },
+            "selection_role": "graph_complement"
+          },
+          {
+            "evidence_id": "ev_00b5ee2f232b_pdf_p002_b009",
+            "channel_scores": {
+              "text": 0.540234,
+              "entity": 1.0
+            },
+            "reasons": [
+              "DIRECT text: 0.540",
+              "DIRECT entity: 1.000 (logging)"
+            ],
+            "seed_score": 1.0,
+            "origin": "direct",
+            "direct": true,
+            "connection_score": 0.0,
+            "final_score": 0.95,
+            "node": {
+              "id": "ev_00b5ee2f232b_pdf_p002_b009",
+              "source_id": "src_00b5ee2f232b",
+              "modality": "pdf_text",
+              "content": "6\nRecord events\nA logging path keeps information for future analysis and long-term storage.",
+              "start_sec": null,
+              "end_sec": null,
+              "speaker": null,
+              "page_number": 2,
+              "bbox": [
+                49.351,
+                299.318,
+                326.78,
+                321.882
+              ],
+              "frame_path": null,
+              "entities": [
+                "logging",
+                "long term storage"
+              ],
+              "confidence": null,
+              "provenance": {
+                "block_id": "page_002_block_009",
+                "file": "rate_limiter_design.pdf",
+                "locator_type": "pdf_block",
+                "page_number": 2,
+                "source_id": "src_00b5ee2f232b"
+              },
+              "text_vector_id": "text:ev_00b5ee2f232b_pdf_p002_b009",
+              "visual_vector_id": null
+            },
+            "selection_role": "ranked_fill"
+          },
+          {
+            "evidence_id": "ev_00b5ee2f232b_pdf_p002_b018",
+            "channel_scores": {
+              "entity": 1.0
+            },
+            "reasons": [
+              "DIRECT entity: 1.000 (logging)"
+            ],
+            "seed_score": 1.0,
+            "origin": "direct",
+            "direct": true,
+            "connection_score": 0.0,
+            "final_score": 0.95,
+            "node": {
+              "id": "ev_00b5ee2f232b_pdf_p002_b018",
+              "source_id": "src_00b5ee2f232b",
+              "modality": "pdf_text",
+              "content": "Logging\nRecords information for future traffic analysis.\nLogging discussion + long-term storage path.",
+              "start_sec": null,
+              "end_sec": null,
+              "speaker": null,
+              "page_number": 2,
+              "bbox": [
+                47.52,
+                566.102,
+                474.529,
+                575.583
+              ],
+              "frame_path": null,
+              "entities": [
+                "logging",
+                "long term storage"
+              ],
+              "confidence": null,
+              "provenance": {
+                "block_id": "page_002_block_018",
+                "file": "rate_limiter_design.pdf",
+                "locator_type": "pdf_block",
+                "page_number": 2,
+                "source_id": "src_00b5ee2f232b"
+              },
+              "text_vector_id": "text:ev_00b5ee2f232b_pdf_p002_b018",
+              "visual_vector_id": null
+            },
+            "selection_role": "ranked_fill"
+          }
+        ],
+        "group_hits": {
+          "logging_visual": false,
+          "logging_document": true
+        },
+        "recall_at_5": 0.5,
+        "complete": false,
+        "provenance_completeness": 1.0,
+        "latency_ms": 38.568
+      }
+    },
+    {
+      "question_id": "Q6",
+      "question": "What architecture was discussed, who explained it, and where was the corresponding design shown?",
+      "required_groups": [
+        {
+          "name": "speech_explanation",
+          "required_modality_family": "speech",
+          "acceptable_evidence_ids": [
+            "ev_1347fcb63e98_speech_0088",
+            "ev_1347fcb63e98_speech_0099",
+            "ev_1347fcb63e98_speech_0116"
+          ]
+        },
+        {
+          "name": "architecture_visual",
+          "required_modality_family": "visual",
+          "acceptable_evidence_ids": [
+            "ev_1347fcb63e98_frame_0009",
+            "ev_1347fcb63e98_frame_0010",
+            "ev_1347fcb63e98_frame_0011",
+            "ev_1347fcb63e98_frame_0012",
+            "ev_9899772d9cc4_image",
+            "ev_66bf6ebf0dbc_image"
+          ]
+        },
+        {
+          "name": "design_document",
+          "required_modality_family": "document",
+          "acceptable_evidence_ids": [
+            "ev_00b5ee2f232b_pdf_p001_b001",
+            "ev_00b5ee2f232b_pdf_p001_b002",
+            "ev_00b5ee2f232b_pdf_p002_b019"
+          ]
+        }
+      ],
+      "baseline": {
+        "top_results": [
+          {
+            "chunk_id": "baseline_00b5ee2f232b_0008",
+            "text": " access when configuration has not changed.\nArchitecture concepts for retrieval\n\nConcept\nMeaning in this design\nEvidence a multimodal system can connect\n\nRate limiter middleware\nServer-side gate before API / web servers.\nSpeech about server-side control + visual request path.\n\nRules engine\nDefines how traffic is identified and which rule applies.\nMentions of IP, user ID, geography + rules component in diagram.\n\nHigh-throughput cache\nTracks recent request usage for fast checks.\nSpeech about reque",
+            "source_id": "src_00b5ee2f232b",
+            "source_filename": "rate_limiter_design.pdf",
+            "chunk_index": 8,
+            "member_evidence_ids": [
+              "ev_00b5ee2f232b_pdf_p002_b012",
+              "ev_00b5ee2f232b_pdf_p002_b013",
+              "ev_00b5ee2f232b_pdf_p002_b014",
+              "ev_00b5ee2f232b_pdf_p002_b015",
+              "ev_00b5ee2f232b_pdf_p002_b016"
+            ],
+            "score": 0.191023,
+            "raw_distance": 0.8089768701172803
+          },
+          {
+            "chunk_id": "baseline_00b5ee2f232b_0009",
+            "text": "t in diagram.\n\nHigh-throughput cache\nTracks recent request usage for fast checks.\nSpeech about request counts + cache box visible in architecture.\n\nHTTP 429\nResponse sent when a request is rate limited.\nSpoken correction/confirmation + rejection path.\n\nLogging\nRecords information for future traffic analysis.\nLogging discussion + long-term storage path.\n\nCross-modal test question\nWhat components make up the rate-limiting design, how are request counts checked, what happens to blocked requests, an",
+            "source_id": "src_00b5ee2f232b",
+            "source_filename": "rate_limiter_design.pdf",
+            "chunk_index": 9,
+            "member_evidence_ids": [
+              "ev_00b5ee2f232b_pdf_p002_b015",
+              "ev_00b5ee2f232b_pdf_p002_b016",
+              "ev_00b5ee2f232b_pdf_p002_b017",
+              "ev_00b5ee2f232b_pdf_p002_b018",
+              "ev_00b5ee2f232b_pdf_p002_b019"
+            ],
+            "score": 0.164048,
+            "raw_distance": 0.8359517937317125
+          },
+          {
+            "chunk_id": "baseline_1347fcb63e98_0041",
+            "text": "what some of the requirements are,\n\nwhat the constraints are. It means not the exact solution that any of these companies use. They would\n\nhave taken months and years to kind of come up with your next bit, a candidate to do that in like\n\n35 minutes to an hour, working by themselves. What, you're telling me I'm not supposed to design\n\nFacebook's entire system and just one 45 minute interview? That's ridiculous. No higher.\n\nLovely. Thank you so much, Josef. I'm sure this is going to be very valuab",
+            "source_id": "src_1347fcb63e98",
+            "source_filename": "meeting_demo.mp4",
+            "chunk_index": 41,
+            "member_evidence_ids": [
+              "ev_1347fcb63e98_speech_0159",
+              "ev_1347fcb63e98_speech_0160",
+              "ev_1347fcb63e98_speech_0161",
+              "ev_1347fcb63e98_speech_0162",
+              "ev_1347fcb63e98_speech_0163",
+              "ev_1347fcb63e98_speech_0164"
+            ],
+            "score": 0.149478,
+            "raw_distance": 0.8505215739240299
+          },
+          {
+            "chunk_id": "baseline_00b5ee2f232b_0001",
+            "text": "SYNTHETIC DEMO REFERENCE DOCUMENT\nRate Limiter Architecture\n\nA compact system-design reference for a server-side rate limiter that protects API and web servers by applying\nconfigurable rules, tracking recent request usage, and rejecting excessive traffic.\n\nServer-side middleware\nRules engine\nHigh-throughput cache\nHTTP 429\nLogging\n\nHIGH-LEVEL REQUEST PATH\nClients\nRate Limiter\n\nAPI / Web Servers\n>\n>\n\nserver-side middleware\n\nRules Engine\n\nHigh-Throughput Cache\n\nLogging Service\n\nIP / User ID / geogr",
+            "source_id": "src_00b5ee2f232b",
+            "source_filename": "rate_limiter_design.pdf",
+            "chunk_index": 1,
+            "member_evidence_ids": [
+              "ev_00b5ee2f232b_pdf_p001_b001",
+              "ev_00b5ee2f232b_pdf_p001_b002",
+              "ev_00b5ee2f232b_pdf_p001_b003",
+              "ev_00b5ee2f232b_pdf_p001_b004",
+              "ev_00b5ee2f232b_pdf_p001_b005",
+              "ev_00b5ee2f232b_pdf_p001_b006",
+              "ev_00b5ee2f232b_pdf_p001_b007",
+              "ev_00b5ee2f232b_pdf_p001_b008",
+              "ev_00b5ee2f232b_pdf_p001_b009",
+              "ev_00b5ee2f232b_pdf_p001_b010"
+            ],
+            "score": 0.145729,
+            "raw_distance": 0.8542707540347321
+          },
+          {
+            "chunk_id": "baseline_1347fcb63e98_0014",
+            "text": "eep sliding them as time goes by. So if there is an extra request that are no longer\n\nused, we can keep sliding the window with it. So that way there are spikes in traffic. And if there\n\nare loves, they can be handled well. Got it. Okay. And is there like a limit to how much you can\n\nslide over for each of these windows? Yeah. So I think all of those are configurations that you can set\n\nwhen you define the rules of the system. So I think some of those details like in the high level design,\n\nit's",
+            "source_id": "src_1347fcb63e98",
+            "source_filename": "meeting_demo.mp4",
+            "chunk_index": 14,
+            "member_evidence_ids": [
+              "ev_1347fcb63e98_speech_0055",
+              "ev_1347fcb63e98_speech_0056",
+              "ev_1347fcb63e98_speech_0057",
+              "ev_1347fcb63e98_speech_0058",
+              "ev_1347fcb63e98_speech_0059",
+              "ev_1347fcb63e98_speech_0060"
+            ],
+            "score": 0.139356,
+            "raw_distance": 0.8606444589850706
+          }
+        ],
+        "group_hits": {
+          "speech_explanation": false,
+          "architecture_visual": false,
+          "design_document": true
+        },
+        "recall_at_5": 0.3333333333333333,
+        "complete": false,
+        "provenance_completeness": 0.3333333333333333,
+        "latency_ms": 14.224
+      },
+      "evidence_graph": {
+        "top_results": [
+          {
+            "evidence_id": "ev_1347fcb63e98_speech_0051",
+            "channel_scores": {
+              "text": 0.385206
+            },
+            "reasons": [
+              "DIRECT text: 0.385"
+            ],
+            "seed_score": 0.385206,
+            "origin": "direct",
+            "direct": true,
+            "connection_score": 0.0,
+            "final_score": 0.458165,
+            "node": {
+              "id": "ev_1347fcb63e98_speech_0051",
+              "source_id": "src_1347fcb63e98",
+              "modality": "speech",
+              "content": "to best suit your needs. Yeah. Any questions so far? Okay, so let's say that we are designing this",
+              "start_sec": 382.45,
+              "end_sec": 394.05,
+              "speaker": "SPEAKER_01",
+              "page_number": null,
+              "bbox": null,
+              "frame_path": null,
+              "entities": [],
+              "confidence": null,
+              "provenance": {
+                "end_sec": 394.05,
+                "file": "meeting_demo.mp4",
+                "locator_type": "time_range",
+                "multi_speaker": true,
+                "source_id": "src_1347fcb63e98",
+                "speaker_alignment": {
+                  "overlap_ratio": 0.394235,
+                  "overlap_sec": 4.573125,
+                  "segment_duration_sec": 11.6,
+                  "speaker_overlaps": {
+                    "SPEAKER_01": 4.573125,
+                    "SPEAKER_04": 0.016875,
+                    "SPEAKER_05": 3.599031
+                  }
+                },
+                "start_sec": 382.45,
+                "transcript_segment_id": "seg_0051"
+              },
+              "text_vector_id": "text:ev_1347fcb63e98_speech_0051",
+              "visual_vector_id": null
+            },
+            "selection_role": "direct_anchor"
+          },
+          {
+            "evidence_id": "ev_1347fcb63e98_speech_0159",
+            "channel_scores": {
+              "text": 0.347958
+            },
+            "reasons": [
+              "DIRECT text: 0.348"
+            ],
+            "seed_score": 0.347958,
+            "origin": "direct",
+            "direct": true,
+            "connection_score": 0.0,
+            "final_score": 0.428366,
+            "node": {
+              "id": "ev_1347fcb63e98_speech_0159",
+              "source_id": "src_1347fcb63e98",
+              "modality": "speech",
+              "content": "the system design interview is just to kind of think through what some of the requirements are,",
+              "start_sec": 1285.47,
+              "end_sec": 1290.83,
+              "speaker": "SPEAKER_01",
+              "page_number": null,
+              "bbox": null,
+              "frame_path": null,
+              "entities": [],
+              "confidence": null,
+              "provenance": {
+                "end_sec": 1290.83,
+                "file": "meeting_demo.mp4",
+                "locator_type": "time_range",
+                "multi_speaker": false,
+                "source_id": "src_1347fcb63e98",
+                "speaker_alignment": {
+                  "overlap_ratio": 1.0,
+                  "overlap_sec": 5.36,
+                  "segment_duration_sec": 5.36,
+                  "speaker_overlaps": {
+                    "SPEAKER_01": 5.36
+                  }
+                },
+                "start_sec": 1285.47,
+                "transcript_segment_id": "seg_0159"
+              },
+              "text_vector_id": "text:ev_1347fcb63e98_speech_0159",
+              "visual_vector_id": null
+            },
+            "selection_role": "direct_anchor"
+          },
+          {
+            "evidence_id": "ev_00b5ee2f232b_pdf_p002_b013",
+            "channel_scores": {
+              "text": 0.339181
+            },
+            "reasons": [
+              "DIRECT text: 0.339"
+            ],
+            "seed_score": 0.339181,
+            "origin": "direct",
+            "direct": true,
+            "connection_score": 0.0,
+            "final_score": 0.421345,
+            "node": {
+              "id": "ev_00b5ee2f232b_pdf_p002_b013",
+              "source_id": "src_00b5ee2f232b",
+              "modality": "pdf_text",
+              "content": "Concept\nMeaning in this design\nEvidence a multimodal system can connect",
+              "start_sec": null,
+              "end_sec": null,
+              "speaker": null,
+              "page_number": 2,
+              "bbox": [
+                47.52,
+                440.816,
+                485.506,
+                450.73
+              ],
+              "frame_path": null,
+              "entities": [],
+              "confidence": null,
+              "provenance": {
+                "block_id": "page_002_block_013",
+                "file": "rate_limiter_design.pdf",
+                "locator_type": "pdf_block",
+                "page_number": 2,
+                "source_id": "src_00b5ee2f232b"
+              },
+              "text_vector_id": "text:ev_00b5ee2f232b_pdf_p002_b013",
+              "visual_vector_id": null
+            },
+            "selection_role": "ranked_fill"
+          },
+          {
+            "evidence_id": "ev_1347fcb63e98_speech_0059",
+            "channel_scores": {
+              "text": 0.336777
+            },
+            "reasons": [
+              "DIRECT text: 0.337"
+            ],
+            "seed_score": 0.336777,
+            "origin": "direct",
+            "direct": true,
+            "connection_score": 0.0,
+            "final_score": 0.419422,
+            "node": {
+              "id": "ev_1347fcb63e98_speech_0059",
+              "source_id": "src_1347fcb63e98",
+              "modality": "speech",
+              "content": "when you define the rules of the system. So I think some of those details like in the high level design,",
+              "start_sec": 448.93,
+              "end_sec": 457.89,
+              "speaker": "SPEAKER_01",
+              "page_number": null,
+              "bbox": null,
+              "frame_path": null,
+              "entities": [],
+              "confidence": null,
+              "provenance": {
+                "end_sec": 457.89,
+                "file": "meeting_demo.mp4",
+                "locator_type": "time_range",
+                "multi_speaker": false,
+                "source_id": "src_1347fcb63e98",
+                "speaker_alignment": {
+                  "overlap_ratio": 0.981166,
+                  "overlap_sec": 8.79125,
+                  "segment_duration_sec": 8.96,
+                  "speaker_overlaps": {
+                    "SPEAKER_01": 8.79125
+                  }
+                },
+                "start_sec": 448.93,
+                "transcript_segment_id": "seg_0059"
+              },
+              "text_vector_id": "text:ev_1347fcb63e98_speech_0059",
+              "visual_vector_id": null
+            },
+            "selection_role": "ranked_fill"
+          },
+          {
+            "evidence_id": "ev_1347fcb63e98_speech_0004",
+            "channel_scores": {
+              "text": 0.313496
+            },
+            "reasons": [
+              "DIRECT text: 0.313"
+            ],
+            "seed_score": 0.313496,
+            "origin": "direct",
+            "direct": true,
+            "connection_score": 0.0,
+            "final_score": 0.400797,
+            "node": {
+              "id": "ev_1347fcb63e98_speech_0004",
+              "source_id": "src_1347fcb63e98",
+              "modality": "speech",
+              "content": "engineering manager at Mehta. Nice to see you again Hazefa. Today we're going to do a system design",
+              "start_sec": 18.75,
+              "end_sec": 26.83,
+              "speaker": "SPEAKER_05",
+              "page_number": null,
+              "bbox": null,
+              "frame_path": null,
+              "entities": [],
+              "confidence": null,
+              "provenance": {
+                "end_sec": 26.83,
+                "file": "meeting_demo.mp4",
+                "locator_type": "time_range",
+                "multi_speaker": false,
+                "source_id": "src_1347fcb63e98",
+                "speaker_alignment": {
+                  "overlap_ratio": 0.570347,
+                  "overlap_sec": 4.608406,
+                  "segment_duration_sec": 8.08,
+                  "speaker_overlaps": {
+                    "SPEAKER_01": 1.969719,
+                    "SPEAKER_05": 4.608406
+                  }
+                },
+                "start_sec": 18.75,
+                "transcript_segment_id": "seg_0004"
+              },
+              "text_vector_id": "text:ev_1347fcb63e98_speech_0004",
+              "visual_vector_id": null
+            },
+            "selection_role": "ranked_fill"
+          }
+        ],
+        "group_hits": {
+          "speech_explanation": false,
+          "architecture_visual": false,
+          "design_document": false
+        },
+        "recall_at_5": 0.0,
+        "complete": false,
+        "provenance_completeness": 0.0,
+        "latency_ms": 44.151
+      }
+    },
+    {
+      "question_id": "Q7",
+      "question": "What is the rules cache used for, and where can it be seen?",
+      "required_groups": [
+        {
+          "name": "rules_cache_explanation",
+          "required_modality_family": "speech",
+          "acceptable_evidence_ids": [
+            "ev_1347fcb63e98_speech_0099",
+            "ev_1347fcb63e98_speech_0100",
+            "ev_1347fcb63e98_speech_0101"
+          ]
+        },
+        {
+          "name": "rules_cache_visual",
+          "required_modality_family": "visual",
+          "acceptable_evidence_ids": [
+            "ev_1347fcb63e98_frame_0010",
+            "ev_1347fcb63e98_frame_0011",
+            "ev_1347fcb63e98_frame_0012",
+            "ev_9899772d9cc4_image",
+            "ev_66bf6ebf0dbc_image"
+          ]
+        }
+      ],
+      "baseline": {
+        "top_results": [
+          {
+            "chunk_id": "baseline_1347fcb63e98_0025",
+            "text": " would essentially first read from the cache, and then directly use that\n\nfor faster read access and the rules engine could directly write into the cache.\n\nYeah. Yeah. So at a high level, this would be like a API rate.\n\nYour rate limiter? Yeah. Yeah. I just, you know, clarity could just kind of mention some of the\n\nAI Rate limiter\n\nRules Engine\n\nRules cache\n\nclient(s)\n\nAPI rate limiter\n\nsuccess\n\nApi/web servers\n\n200HTTP\n\nfailure 429 HTTP code\n\nCache(high\n\nthroughput)\n\nLogging mechanism\n\nLong ter",
+            "source_id": "src_1347fcb63e98",
+            "source_filename": "meeting_demo.mp4",
+            "chunk_index": 25,
+            "member_evidence_ids": [
+              "ev_1347fcb63e98_speech_0100",
+              "ev_1347fcb63e98_speech_0101",
+              "ev_1347fcb63e98_speech_0102",
+              "ev_1347fcb63e98_speech_0103",
+              "ev_1347fcb63e98_ocr_frame_0010_001",
+              "ev_1347fcb63e98_ocr_frame_0010_002",
+              "ev_1347fcb63e98_ocr_frame_0010_003",
+              "ev_1347fcb63e98_ocr_frame_0010_004",
+              "ev_1347fcb63e98_ocr_frame_0010_005",
+              "ev_1347fcb63e98_ocr_frame_0010_006",
+              "ev_1347fcb63e98_ocr_frame_0010_007",
+              "ev_1347fcb63e98_ocr_frame_0010_008",
+              "ev_1347fcb63e98_ocr_frame_0010_009",
+              "ev_1347fcb63e98_ocr_frame_0010_010",
+              "ev_1347fcb63e98_ocr_frame_0010_011",
+              "ev_1347fcb63e98_ocr_frame_0010_012",
+              "ev_1347fcb63e98_ocr_frame_0010_013"
+            ],
+            "score": 0.681538,
+            "raw_distance": 0.3184616497631444
+          },
+          {
+            "chunk_id": "baseline_00b5ee2f232b_0007",
+            "text": "s HTTP 429; successful requests continue through the application path.\n\n6\nRecord events\nA logging path keeps information for future analysis and long-term storage.\n\nOptimization: cache the rules\n\nRules Engine\n>\nRules Cache\n>\nRate Limiter\n\nIf the limiter contacts the rules engine on every request, rule lookup becomes part of the hot path. A cache between the rules engine and\nlimiter provides faster access when configuration has not changed.\nArchitecture concepts for retrieval\n\nConcept\nMeaning in ",
+            "source_id": "src_00b5ee2f232b",
+            "source_filename": "rate_limiter_design.pdf",
+            "chunk_index": 7,
+            "member_evidence_ids": [
+              "ev_00b5ee2f232b_pdf_p002_b008",
+              "ev_00b5ee2f232b_pdf_p002_b009",
+              "ev_00b5ee2f232b_pdf_p002_b010",
+              "ev_00b5ee2f232b_pdf_p002_b011",
+              "ev_00b5ee2f232b_pdf_p002_b012",
+              "ev_00b5ee2f232b_pdf_p002_b013"
+            ],
+            "score": 0.680528,
+            "raw_distance": 0.3194720415133826
+          },
+          {
+            "chunk_id": "baseline_00b5ee2f232b_0008",
+            "text": " access when configuration has not changed.\nArchitecture concepts for retrieval\n\nConcept\nMeaning in this design\nEvidence a multimodal system can connect\n\nRate limiter middleware\nServer-side gate before API / web servers.\nSpeech about server-side control + visual request path.\n\nRules engine\nDefines how traffic is identified and which rule applies.\nMentions of IP, user ID, geography + rules component in diagram.\n\nHigh-throughput cache\nTracks recent request usage for fast checks.\nSpeech about reque",
+            "source_id": "src_00b5ee2f232b",
+            "source_filename": "rate_limiter_design.pdf",
+            "chunk_index": 8,
+            "member_evidence_ids": [
+              "ev_00b5ee2f232b_pdf_p002_b012",
+              "ev_00b5ee2f232b_pdf_p002_b013",
+              "ev_00b5ee2f232b_pdf_p002_b014",
+              "ev_00b5ee2f232b_pdf_p002_b015",
+              "ev_00b5ee2f232b_pdf_p002_b016"
+            ],
+            "score": 0.561499,
+            "raw_distance": 0.43850140600729226
+          },
+          {
+            "chunk_id": "baseline_1347fcb63e98_0032",
+            "text": "nt\n\nmultiple instances of the rules cache, because in theory, the rules don't change that often,\n\nwhere you wouldn't want to change a rule very often or multiple times in a day, rules generally\n\nare set and they persist over a period of time. So they need not be kind of distributed. They can\n\nagain be at a few places and the rate limiters can read from there. Is there a situation in which\n\nyou would want to have different rate limiters for different geographies? I don't think so. The reason\n\nAPI",
+            "source_id": "src_1347fcb63e98",
+            "source_filename": "meeting_demo.mp4",
+            "chunk_index": 32,
+            "member_evidence_ids": [
+              "ev_1347fcb63e98_speech_0125",
+              "ev_1347fcb63e98_speech_0126",
+              "ev_1347fcb63e98_speech_0127",
+              "ev_1347fcb63e98_speech_0128",
+              "ev_1347fcb63e98_speech_0129",
+              "ev_1347fcb63e98_speech_0130",
+              "ev_1347fcb63e98_ocr_frame_0012_001"
+            ],
+            "score": 0.559132,
+            "raw_distance": 0.4408678683959929
+          },
+          {
+            "chunk_id": "baseline_1347fcb63e98_0031",
+            "text": "ere\n\nyou can have like a one read cache and a one write cache, and then how do you see between the two of\n\nthem or have one common read write cache, which is shared across all data centers? Yeah.\n\nOkay, that's fair. And then all your implementations of your API rate limiter will they also read\n\nfrom the same cache? The rules cache? The rules cache, yes, you could technically have if needed different\n\nmultiple instances of the rules cache, because in theory, the rules don't change that often,\n\nwh",
+            "source_id": "src_1347fcb63e98",
+            "source_filename": "meeting_demo.mp4",
+            "chunk_index": 31,
+            "member_evidence_ids": [
+              "ev_1347fcb63e98_speech_0121",
+              "ev_1347fcb63e98_speech_0122",
+              "ev_1347fcb63e98_speech_0123",
+              "ev_1347fcb63e98_speech_0124",
+              "ev_1347fcb63e98_speech_0125",
+              "ev_1347fcb63e98_speech_0126",
+              "ev_1347fcb63e98_speech_0127"
+            ],
+            "score": 0.553026,
+            "raw_distance": 0.44697443914823154
+          }
+        ],
+        "group_hits": {
+          "rules_cache_explanation": true,
+          "rules_cache_visual": false
+        },
+        "recall_at_5": 0.5,
+        "complete": false,
+        "provenance_completeness": 0.25,
+        "latency_ms": 15.985
+      },
+      "evidence_graph": {
+        "top_results": [
+          {
+            "evidence_id": "ev_00b5ee2f232b_pdf_p002_b001",
+            "channel_scores": {
+              "entity": 1.0
+            },
+            "reasons": [
+              "DIRECT entity: 1.000 (rules cache)"
+            ],
+            "seed_score": 1.0,
+            "origin": "direct",
+            "direct": true,
+            "connection_score": 0.0,
+            "final_score": 0.95,
+            "node": {
+              "id": "ev_00b5ee2f232b_pdf_p002_b001",
+              "source_id": "src_00b5ee2f232b",
+              "modality": "pdf_text",
+              "content": "DESIGN NOTES\nRequest Lifecycle and Rules-Cache Optimization",
+              "start_sec": null,
+              "end_sec": null,
+              "speaker": null,
+              "page_number": 2,
+              "bbox": [
+                42.52,
+                33.746,
+                553.536,
+                71.274
+              ],
+              "frame_path": null,
+              "entities": [
+                "request",
+                "rules cache"
+              ],
+              "confidence": null,
+              "provenance": {
+                "block_id": "page_002_block_001",
+                "file": "rate_limiter_design.pdf",
+                "locator_type": "pdf_block",
+                "page_number": 2,
+                "source_id": "src_00b5ee2f232b"
+              },
+              "text_vector_id": "text:ev_00b5ee2f232b_pdf_p002_b001",
+              "visual_vector_id": null
+            },
+            "selection_role": "direct_anchor"
+          },
+          {
+            "evidence_id": "ev_00b5ee2f232b_pdf_p002_b011",
+            "channel_scores": {
+              "entity": 1.0
+            },
+            "reasons": [
+              "DIRECT entity: 1.000 (rules cache)"
+            ],
+            "seed_score": 1.0,
+            "origin": "direct",
+            "direct": true,
+            "connection_score": 0.0,
+            "final_score": 0.95,
+            "node": {
+              "id": "ev_00b5ee2f232b_pdf_p002_b011",
+              "source_id": "src_00b5ee2f232b",
+              "modality": "pdf_text",
+              "content": "Rules Engine\n>\nRules Cache\n>\nRate Limiter",
+              "start_sec": null,
+              "end_sec": null,
+              "speaker": null,
+              "page_number": 2,
+              "bbox": [
+                92.352,
+                361.54,
+                500.478,
+                380.818
+              ],
+              "frame_path": null,
+              "entities": [
+                "rate limiter",
+                "rules cache",
+                "rules engine"
+              ],
+              "confidence": null,
+              "provenance": {
+                "block_id": "page_002_block_011",
+                "file": "rate_limiter_design.pdf",
+                "locator_type": "pdf_block",
+                "page_number": 2,
+                "source_id": "src_00b5ee2f232b"
+              },
+              "text_vector_id": "text:ev_00b5ee2f232b_pdf_p002_b011",
+              "visual_vector_id": null
+            },
+            "selection_role": "direct_anchor"
+          },
+          {
+            "evidence_id": "ev_1347fcb63e98_ocr_frame_0010_003",
+            "origin": "graph_expanded",
+            "origin_seed_id": "ev_00b5ee2f232b_pdf_p002_b001",
+            "origin_seed_score": 1.0,
+            "propagated_relevance": 0.8,
+            "connection_score": 1.0,
+            "edge_confidence": 1.0,
+            "hop_count": 1,
+            "reason": "EXPANDED from ev_00b5ee2f232b_pdf_p002_b001: ENTITY_OVERLAP 1.000",
+            "direct": false,
+            "final_score": 0.72,
+            "reasons": [
+              "EXPANDED from ev_00b5ee2f232b_pdf_p002_b001: ENTITY_OVERLAP 1.000"
+            ],
+            "node": {
+              "id": "ev_1347fcb63e98_ocr_frame_0010_003",
+              "source_id": "src_1347fcb63e98",
+              "modality": "ocr_text",
+              "content": "Rules cache",
+              "start_sec": 840.0,
+              "end_sec": 840.0,
+              "speaker": null,
+              "page_number": null,
+              "bbox": [
+                709.0,
+                147.0,
+                771.0,
+                161.0
+              ],
+              "frame_path": "data/cache/src_1347fcb63e98/frames/frame_0010.jpg",
+              "entities": [
+                "rules cache"
+              ],
+              "confidence": 0.996551,
+              "provenance": {
+                "file": "meeting_demo.mp4",
+                "frame_id": "frame_0010",
+                "locator_type": "frame_ocr_region",
+                "ocr_engine": "PaddleOCR",
+                "ocr_region_id": "ocr_frame_0010_003",
+                "source_id": "src_1347fcb63e98",
+                "timestamp_sec": 840.0
+              },
+              "text_vector_id": "text:ev_1347fcb63e98_ocr_frame_0010_003",
+              "visual_vector_id": null
+            },
+            "selection_role": "graph_complement"
+          },
+          {
+            "evidence_id": "ev_1347fcb63e98_frame_0010",
+            "channel_scores": {
+              "visual": 0.247805,
+              "entity": 1.0
+            },
+            "reasons": [
+              "DIRECT visual: 0.248",
+              "DIRECT entity: 1.000 (rules cache)"
+            ],
+            "seed_score": 1.0,
+            "origin": "direct",
+            "direct": true,
+            "connection_score": 0.0,
+            "final_score": 0.95,
+            "node": {
+              "id": "ev_1347fcb63e98_frame_0010",
+              "source_id": "src_1347fcb63e98",
+              "modality": "video_frame",
+              "content": null,
+              "start_sec": 840.0,
+              "end_sec": 840.0,
+              "speaker": null,
+              "page_number": null,
+              "bbox": null,
+              "frame_path": "data/cache/src_1347fcb63e98/frames/frame_0010.jpg",
+              "entities": [
+                "cache",
+                "client",
+                "logging",
+                "long term storage",
+                "rate limiter",
+                "rules cache",
+                "rules engine",
+                "throughput",
+                "web server"
+              ],
+              "confidence": null,
+              "provenance": {
+                "file": "meeting_demo.mp4",
+                "frame_id": "frame_0010",
+                "locator_type": "video_frame",
+                "source_id": "src_1347fcb63e98",
+                "timestamp_sec": 840.0
+              },
+              "text_vector_id": null,
+              "visual_vector_id": "visual:ev_1347fcb63e98_frame_0010"
+            },
+            "selection_role": "ranked_fill"
+          },
+          {
+            "evidence_id": "ev_1347fcb63e98_frame_0011",
+            "channel_scores": {
+              "visual": 0.252102,
+              "entity": 1.0
+            },
+            "reasons": [
+              "DIRECT visual: 0.252",
+              "DIRECT entity: 1.000 (rules cache)"
+            ],
+            "seed_score": 1.0,
+            "origin": "direct",
+            "direct": true,
+            "connection_score": 0.0,
+            "final_score": 0.95,
+            "node": {
+              "id": "ev_1347fcb63e98_frame_0011",
+              "source_id": "src_1347fcb63e98",
+              "modality": "video_frame",
+              "content": null,
+              "start_sec": 960.0,
+              "end_sec": 960.0,
+              "speaker": null,
+              "page_number": null,
+              "bbox": null,
+              "frame_path": "data/cache/src_1347fcb63e98/frames/frame_0011.jpg",
+              "entities": [
+                "cache",
+                "client",
+                "load balancer",
+                "logging",
+                "long term storage",
+                "rate limiter",
+                "request",
+                "rules cache",
+                "rules engine",
+                "server",
+                "throughput",
+                "web server"
+              ],
+              "confidence": null,
+              "provenance": {
+                "file": "meeting_demo.mp4",
+                "frame_id": "frame_0011",
+                "locator_type": "video_frame",
+                "source_id": "src_1347fcb63e98",
+                "timestamp_sec": 960.0
+              },
+              "text_vector_id": null,
+              "visual_vector_id": "visual:ev_1347fcb63e98_frame_0011"
+            },
+            "selection_role": "ranked_fill"
+          }
+        ],
+        "group_hits": {
+          "rules_cache_explanation": false,
+          "rules_cache_visual": true
+        },
+        "recall_at_5": 0.5,
+        "complete": false,
+        "provenance_completeness": 1.0,
+        "latency_ms": 41.574
+      }
+    },
+    {
+      "question_id": "Q8",
+      "question": "Who discussed the high-throughput rate-limiter cache, at what point in the meeting, and where is the design documented?",
+      "required_groups": [
+        {
+          "name": "speaker_timestamp_evidence",
+          "required_modality_family": "speech",
+          "acceptable_evidence_ids": [
+            "ev_1347fcb63e98_speech_0088"
+          ]
+        },
+        {
+          "name": "cache_documentation",
+          "required_modality_family": "document",
+          "acceptable_evidence_ids": [
+            "ev_00b5ee2f232b_pdf_p001_b028",
+            "ev_00b5ee2f232b_pdf_p002_b006",
+            "ev_00b5ee2f232b_pdf_p002_b016"
+          ]
+        }
+      ],
+      "baseline": {
+        "top_results": [
+          {
+            "chunk_id": "baseline_00b5ee2f232b_0001",
+            "text": "SYNTHETIC DEMO REFERENCE DOCUMENT\nRate Limiter Architecture\n\nA compact system-design reference for a server-side rate limiter that protects API and web servers by applying\nconfigurable rules, tracking recent request usage, and rejecting excessive traffic.\n\nServer-side middleware\nRules engine\nHigh-throughput cache\nHTTP 429\nLogging\n\nHIGH-LEVEL REQUEST PATH\nClients\nRate Limiter\n\nAPI / Web Servers\n>\n>\n\nserver-side middleware\n\nRules Engine\n\nHigh-Throughput Cache\n\nLogging Service\n\nIP / User ID / geogr",
+            "source_id": "src_00b5ee2f232b",
+            "source_filename": "rate_limiter_design.pdf",
+            "chunk_index": 1,
+            "member_evidence_ids": [
+              "ev_00b5ee2f232b_pdf_p001_b001",
+              "ev_00b5ee2f232b_pdf_p001_b002",
+              "ev_00b5ee2f232b_pdf_p001_b003",
+              "ev_00b5ee2f232b_pdf_p001_b004",
+              "ev_00b5ee2f232b_pdf_p001_b005",
+              "ev_00b5ee2f232b_pdf_p001_b006",
+              "ev_00b5ee2f232b_pdf_p001_b007",
+              "ev_00b5ee2f232b_pdf_p001_b008",
+              "ev_00b5ee2f232b_pdf_p001_b009",
+              "ev_00b5ee2f232b_pdf_p001_b010"
+            ],
+            "score": 0.65057,
+            "raw_distance": 0.3494304370002066
+          },
+          {
+            "chunk_id": "baseline_00b5ee2f232b_0009",
+            "text": "t in diagram.\n\nHigh-throughput cache\nTracks recent request usage for fast checks.\nSpeech about request counts + cache box visible in architecture.\n\nHTTP 429\nResponse sent when a request is rate limited.\nSpoken correction/confirmation + rejection path.\n\nLogging\nRecords information for future traffic analysis.\nLogging discussion + long-term storage path.\n\nCross-modal test question\nWhat components make up the rate-limiting design, how are request counts checked, what happens to blocked requests, an",
+            "source_id": "src_00b5ee2f232b",
+            "source_filename": "rate_limiter_design.pdf",
+            "chunk_index": 9,
+            "member_evidence_ids": [
+              "ev_00b5ee2f232b_pdf_p002_b015",
+              "ev_00b5ee2f232b_pdf_p002_b016",
+              "ev_00b5ee2f232b_pdf_p002_b017",
+              "ev_00b5ee2f232b_pdf_p002_b018",
+              "ev_00b5ee2f232b_pdf_p002_b019"
+            ],
+            "score": 0.602494,
+            "raw_distance": 0.3975059262422508
+          },
+          {
+            "chunk_id": "baseline_1347fcb63e98_0025",
+            "text": " would essentially first read from the cache, and then directly use that\n\nfor faster read access and the rules engine could directly write into the cache.\n\nYeah. Yeah. So at a high level, this would be like a API rate.\n\nYour rate limiter? Yeah. Yeah. I just, you know, clarity could just kind of mention some of the\n\nAI Rate limiter\n\nRules Engine\n\nRules cache\n\nclient(s)\n\nAPI rate limiter\n\nsuccess\n\nApi/web servers\n\n200HTTP\n\nfailure 429 HTTP code\n\nCache(high\n\nthroughput)\n\nLogging mechanism\n\nLong ter",
+            "source_id": "src_1347fcb63e98",
+            "source_filename": "meeting_demo.mp4",
+            "chunk_index": 25,
+            "member_evidence_ids": [
+              "ev_1347fcb63e98_speech_0100",
+              "ev_1347fcb63e98_speech_0101",
+              "ev_1347fcb63e98_speech_0102",
+              "ev_1347fcb63e98_speech_0103",
+              "ev_1347fcb63e98_ocr_frame_0010_001",
+              "ev_1347fcb63e98_ocr_frame_0010_002",
+              "ev_1347fcb63e98_ocr_frame_0010_003",
+              "ev_1347fcb63e98_ocr_frame_0010_004",
+              "ev_1347fcb63e98_ocr_frame_0010_005",
+              "ev_1347fcb63e98_ocr_frame_0010_006",
+              "ev_1347fcb63e98_ocr_frame_0010_007",
+              "ev_1347fcb63e98_ocr_frame_0010_008",
+              "ev_1347fcb63e98_ocr_frame_0010_009",
+              "ev_1347fcb63e98_ocr_frame_0010_010",
+              "ev_1347fcb63e98_ocr_frame_0010_011",
+              "ev_1347fcb63e98_ocr_frame_0010_012",
+              "ev_1347fcb63e98_ocr_frame_0010_013"
+            ],
+            "score": 0.570672,
+            "raw_distance": 0.42932775248338617
+          },
+          {
+            "chunk_id": "baseline_1347fcb63e98_0015",
+            "text": "efine the rules of the system. So I think some of those details like in the high level design,\n\nit's basically you define like a rule engine which will determine what the size of the window is,\n\nhow many counters do you need within each window? What's the sliding scale over there? Yeah.\n\nOkay, let's get into that. Sure. So at a high level, the rate limiter consists of a few components.\n\nSo as we said at the start of the recording that we will have a server side implementation\n\nright of the rate ",
+            "source_id": "src_1347fcb63e98",
+            "source_filename": "meeting_demo.mp4",
+            "chunk_index": 15,
+            "member_evidence_ids": [
+              "ev_1347fcb63e98_speech_0059",
+              "ev_1347fcb63e98_speech_0060",
+              "ev_1347fcb63e98_speech_0061",
+              "ev_1347fcb63e98_speech_0062",
+              "ev_1347fcb63e98_speech_0063",
+              "ev_1347fcb63e98_speech_0064"
+            ],
+            "score": 0.536045,
+            "raw_distance": 0.46395546791462106
+          },
+          {
+            "chunk_id": "baseline_1347fcb63e98_0031",
+            "text": "ere\n\nyou can have like a one read cache and a one write cache, and then how do you see between the two of\n\nthem or have one common read write cache, which is shared across all data centers? Yeah.\n\nOkay, that's fair. And then all your implementations of your API rate limiter will they also read\n\nfrom the same cache? The rules cache? The rules cache, yes, you could technically have if needed different\n\nmultiple instances of the rules cache, because in theory, the rules don't change that often,\n\nwh",
+            "source_id": "src_1347fcb63e98",
+            "source_filename": "meeting_demo.mp4",
+            "chunk_index": 31,
+            "member_evidence_ids": [
+              "ev_1347fcb63e98_speech_0121",
+              "ev_1347fcb63e98_speech_0122",
+              "ev_1347fcb63e98_speech_0123",
+              "ev_1347fcb63e98_speech_0124",
+              "ev_1347fcb63e98_speech_0125",
+              "ev_1347fcb63e98_speech_0126",
+              "ev_1347fcb63e98_speech_0127"
+            ],
+            "score": 0.497932,
+            "raw_distance": 0.5020684245559617
+          }
+        ],
+        "group_hits": {
+          "speaker_timestamp_evidence": false,
+          "cache_documentation": true
+        },
+        "recall_at_5": 0.5,
+        "complete": false,
+        "provenance_completeness": 0.3333333333333333,
+        "latency_ms": 15.512
+      },
+      "evidence_graph": {
+        "top_results": [
+          {
+            "evidence_id": "ev_1347fcb63e98_frame_0009",
+            "channel_scores": {
+              "visual": 0.263775,
+              "entity": 1.0
+            },
+            "reasons": [
+              "DIRECT visual: 0.264",
+              "DIRECT entity: 1.000 (cache, rate limiter, throughput)"
+            ],
+            "seed_score": 1.0,
+            "origin": "direct",
+            "direct": true,
+            "connection_score": 0.0,
+            "final_score": 0.95,
+            "node": {
+              "id": "ev_1347fcb63e98_frame_0009",
+              "source_id": "src_1347fcb63e98",
+              "modality": "video_frame",
+              "content": null,
+              "start_sec": 720.0,
+              "end_sec": 720.0,
+              "speaker": null,
+              "page_number": null,
+              "bbox": null,
+              "frame_path": "data/cache/src_1347fcb63e98/frames/frame_0009.jpg",
+              "entities": [
+                "cache",
+                "client",
+                "rate limiter",
+                "rules engine",
+                "throughput",
+                "web server"
+              ],
+              "confidence": null,
+              "provenance": {
+                "file": "meeting_demo.mp4",
+                "frame_id": "frame_0009",
+                "locator_type": "video_frame",
+                "source_id": "src_1347fcb63e98",
+                "timestamp_sec": 720.0
+              },
+              "text_vector_id": null,
+              "visual_vector_id": "visual:ev_1347fcb63e98_frame_0009"
+            },
+            "selection_role": "direct_anchor"
+          },
+          {
+            "evidence_id": "ev_1347fcb63e98_frame_0010",
+            "channel_scores": {
+              "visual": 0.26136,
+              "entity": 1.0
+            },
+            "reasons": [
+              "DIRECT visual: 0.261",
+              "DIRECT entity: 1.000 (cache, rate limiter, throughput)"
+            ],
+            "seed_score": 1.0,
+            "origin": "direct",
+            "direct": true,
+            "connection_score": 0.0,
+            "final_score": 0.95,
+            "node": {
+              "id": "ev_1347fcb63e98_frame_0010",
+              "source_id": "src_1347fcb63e98",
+              "modality": "video_frame",
+              "content": null,
+              "start_sec": 840.0,
+              "end_sec": 840.0,
+              "speaker": null,
+              "page_number": null,
+              "bbox": null,
+              "frame_path": "data/cache/src_1347fcb63e98/frames/frame_0010.jpg",
+              "entities": [
+                "cache",
+                "client",
+                "logging",
+                "long term storage",
+                "rate limiter",
+                "rules cache",
+                "rules engine",
+                "throughput",
+                "web server"
+              ],
+              "confidence": null,
+              "provenance": {
+                "file": "meeting_demo.mp4",
+                "frame_id": "frame_0010",
+                "locator_type": "video_frame",
+                "source_id": "src_1347fcb63e98",
+                "timestamp_sec": 840.0
+              },
+              "text_vector_id": null,
+              "visual_vector_id": "visual:ev_1347fcb63e98_frame_0010"
+            },
+            "selection_role": "direct_anchor"
+          },
+          {
+            "evidence_id": "ev_00b5ee2f232b_pdf_p001_b028",
+            "origin": "graph_expanded",
+            "origin_seed_id": "ev_1347fcb63e98_frame_0009",
+            "origin_seed_score": 1.0,
+            "propagated_relevance": 0.8,
+            "connection_score": 1.0,
+            "edge_confidence": 1.0,
+            "hop_count": 1,
+            "reason": "EXPANDED from ev_1347fcb63e98_frame_0009: ENTITY_OVERLAP 1.000",
+            "direct": false,
+            "final_score": 0.72,
+            "reasons": [
+              "EXPANDED from ev_1347fcb63e98_frame_0009: ENTITY_OVERLAP 1.000"
+            ],
+            "node": {
+              "id": "ev_00b5ee2f232b_pdf_p001_b028",
+              "source_id": "src_00b5ee2f232b",
+              "modality": "pdf_text",
+              "content": "High throughput matters because many requests touch this store.",
+              "start_sec": null,
+              "end_sec": null,
+              "speaker": null,
+              "page_number": 1,
+              "bbox": [
+                60.52,
+                440.35,
+                280.6,
+                450.792
+              ],
+              "frame_path": null,
+              "entities": [
+                "throughput"
+              ],
+              "confidence": null,
+              "provenance": {
+                "block_id": "page_001_block_028",
+                "file": "rate_limiter_design.pdf",
+                "locator_type": "pdf_block",
+                "page_number": 1,
+                "source_id": "src_00b5ee2f232b"
+              },
+              "text_vector_id": "text:ev_00b5ee2f232b_pdf_p001_b028",
+              "visual_vector_id": null
+            },
+            "selection_role": "graph_complement"
+          },
+          {
+            "evidence_id": "ev_1347fcb63e98_frame_0011",
+            "channel_scores": {
+              "visual": 0.265997,
+              "entity": 1.0
+            },
+            "reasons": [
+              "DIRECT visual: 0.266",
+              "DIRECT entity: 1.000 (cache, rate limiter, throughput)"
+            ],
+            "seed_score": 1.0,
+            "origin": "direct",
+            "direct": true,
+            "connection_score": 0.0,
+            "final_score": 0.95,
+            "node": {
+              "id": "ev_1347fcb63e98_frame_0011",
+              "source_id": "src_1347fcb63e98",
+              "modality": "video_frame",
+              "content": null,
+              "start_sec": 960.0,
+              "end_sec": 960.0,
+              "speaker": null,
+              "page_number": null,
+              "bbox": null,
+              "frame_path": "data/cache/src_1347fcb63e98/frames/frame_0011.jpg",
+              "entities": [
+                "cache",
+                "client",
+                "load balancer",
+                "logging",
+                "long term storage",
+                "rate limiter",
+                "request",
+                "rules cache",
+                "rules engine",
+                "server",
+                "throughput",
+                "web server"
+              ],
+              "confidence": null,
+              "provenance": {
+                "file": "meeting_demo.mp4",
+                "frame_id": "frame_0011",
+                "locator_type": "video_frame",
+                "source_id": "src_1347fcb63e98",
+                "timestamp_sec": 960.0
+              },
+              "text_vector_id": null,
+              "visual_vector_id": "visual:ev_1347fcb63e98_frame_0011"
+            },
+            "selection_role": "ranked_fill"
+          },
+          {
+            "evidence_id": "ev_1347fcb63e98_frame_0012",
+            "channel_scores": {
+              "visual": 0.26714,
+              "entity": 1.0
+            },
+            "reasons": [
+              "DIRECT visual: 0.267",
+              "DIRECT entity: 1.000 (cache, rate limiter, throughput)"
+            ],
+            "seed_score": 1.0,
+            "origin": "direct",
+            "direct": true,
+            "connection_score": 0.0,
+            "final_score": 0.95,
+            "node": {
+              "id": "ev_1347fcb63e98_frame_0012",
+              "source_id": "src_1347fcb63e98",
+              "modality": "video_frame",
+              "content": null,
+              "start_sec": 1080.0,
+              "end_sec": 1080.0,
+              "speaker": null,
+              "page_number": null,
+              "bbox": null,
+              "frame_path": "data/cache/src_1347fcb63e98/frames/frame_0012.jpg",
+              "entities": [
+                "cache",
+                "client",
+                "load balancer",
+                "logging",
+                "long term storage",
+                "rate limiter",
+                "request",
+                "rules cache",
+                "rules engine",
+                "server",
+                "throughput",
+                "web server"
+              ],
+              "confidence": null,
+              "provenance": {
+                "file": "meeting_demo.mp4",
+                "frame_id": "frame_0012",
+                "locator_type": "video_frame",
+                "source_id": "src_1347fcb63e98",
+                "timestamp_sec": 1080.0
+              },
+              "text_vector_id": null,
+              "visual_vector_id": "visual:ev_1347fcb63e98_frame_0012"
+            },
+            "selection_role": "ranked_fill"
+          }
+        ],
+        "group_hits": {
+          "speaker_timestamp_evidence": false,
+          "cache_documentation": true
+        },
+        "recall_at_5": 0.5,
+        "complete": false,
+        "provenance_completeness": 1.0,
+        "latency_ms": 46.313
+      }
+    }
+  ],
+  "summary": {
+    "baseline": {
+      "evidence_recall_at_5": 0.5416666666666667,
+      "complete_evidence_rate": 0.25,
+      "provenance_completeness": 0.24999999999999997,
+      "average_latency_ms": 15.838875000000002
+    },
+    "evidence_graph": {
+      "evidence_recall_at_5": 0.375,
+      "complete_evidence_rate": 0.125,
+      "provenance_completeness": 0.625,
+      "average_latency_ms": 108.40024999999999
+    },
+    "delta": {
+      "evidence_recall_at_5": -0.16666666666666674,
+      "complete_evidence_rate": -0.125,
+      "provenance_completeness": 0.375,
+      "average_latency_ms": 92.56137499999998
+    }
+  }
+}

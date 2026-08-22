@@ -16,10 +16,11 @@ from backend.app.evidence.repository import EvidenceRepository
 from backend.app.generation.deterministic import format_answer
 from backend.app.graph.loader import load_graph
 from backend.app.retrieval.entity_search import entity_search
-from backend.app.retrieval.evidence_bundle import build_bundle
+from backend.app.retrieval.evidence_bundle import select_bundle
 from backend.app.retrieval.fusion import fuse_candidates, select_seeds
 from backend.app.retrieval.graph_expansion import expand_graph
 from backend.app.retrieval.reranker import rerank
+from backend.app.retrieval.policy import load_retrieval_policy
 from backend.app.retrieval.text_search import text_search
 from backend.app.retrieval.visual_search import visual_search
 from backend.app.vector.chroma import ChromaStore
@@ -51,6 +52,7 @@ class QueryService:
         self.store = EvidenceStore(root / "data" / "app.db")
         self.chroma = ChromaStore(root / "data" / "chroma")
         self.entity_config = load_entity_config(root / "config")
+        self.retrieval_policy = load_retrieval_policy(root / "config")
         self.graph = load_graph(self.nodes, self.store.load_edges())
 
     def query(self, question: str, top_k: int = 8, graph_hops: int = 1) -> dict[str, object]:
@@ -62,9 +64,11 @@ class QueryService:
         entity_hits = entity_search(self.nodes, query_entities, 12)
         fused = fuse_candidates([text_hits, visual_hits, entity_hits])
         seeds = select_seeds(fused, self.by_id, request.top_k)
-        mark = time.perf_counter(); expanded, connections = expand_graph(self.graph, seeds, request.graph_hops); graph_ms = (time.perf_counter()-mark)*1000
-        ranked = rerank(seeds, expanded, self.by_id)
-        bundle = build_bundle(ranked, 8)
+        mark = time.perf_counter(); expanded, connections = expand_graph(
+            self.graph, seeds, request.graph_hops, hop_decay=self.retrieval_policy.hop_decay
+        ); graph_ms = (time.perf_counter()-mark)*1000
+        ranked = rerank(seeds, expanded, self.by_id, self.retrieval_policy)
+        bundle, selection = select_bundle(ranked, 8, self.retrieval_policy)
         return {
             "question": request.question, "query_entities": query_entities,
             "channels": {"text": text_hits, "visual": visual_hits, "entity": entity_hits},
@@ -73,6 +77,7 @@ class QueryService:
             "expanded_evidence": [{**item, "modality": self.by_id[str(item["evidence_id"])].modality}
                                   for item in expanded],
             "connections": connections, "evidence_bundle": bundle,
+            "selection_diagnostics": selection,
             "answer": format_answer(bundle), "generation_mode": "deterministic",
             "latency_ms": round((time.perf_counter()-started)*1000, 3),
             "timings_ms": {"text": round(text_ms, 3), "visual": round(visual_ms, 3),

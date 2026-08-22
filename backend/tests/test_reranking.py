@@ -15,6 +15,9 @@ class RerankingTests(unittest.TestCase):
                         [{"evidence_id": expanded_id, "origin_seed_id": seed_id,
                           "propagated_relevance": 0.9, "connection_score": 1.0, "reason": "test"}], by_id)
         self.assertTrue(all(0 <= item["final_score"] <= 1 for item in ranked))
-        self.assertGreaterEqual(next(x for x in ranked if x["evidence_id"] == expanded_id)["final_score"], 0.9)
+        direct = next(x for x in ranked if x["evidence_id"] == seed_id)
+        graph = next(x for x in ranked if x["evidence_id"] == expanded_id)
+        self.assertGreater(direct["final_score"], graph["final_score"])
+        self.assertEqual((direct["origin"], graph["origin"]), ("direct", "graph_expanded"))
         for modality in ("speech", "video_frame", "pdf_text", "ocr_text"):
             self.assertEqual(provenance_quality(next(node for node in by_id.values() if node.modality == modality)), 1.0)

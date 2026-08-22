@@ -1,0 +1,16 @@
+{
+  "direct_anchor_count": 2,
+  "direct_anchor_min_score": 0.25,
+  "hop_decay": 0.8,
+  "complementary_min_edge_confidence": 0.7,
+  "complementary_min_propagated_relevance": 0.15,
+  "near_duplicate_jaccard": 0.65,
+  "speech_duplicate_window_seconds": 20.0,
+  "max_ocr_per_frame": 2,
+  "max_pdf_blocks_per_page": 2,
+  "direct_relevance_weight": 0.8,
+  "expanded_relevance_weight": 0.65,
+  "expanded_edge_weight": 0.1,
+  "provenance_weight": 0.1,
+  "direct_origin_bonus": 0.05
+}

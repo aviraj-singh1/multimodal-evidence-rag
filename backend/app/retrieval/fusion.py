@@ -1,4 +1,4 @@
-"""Explainable max-score fusion with bounded modality-diverse seeds."""
+"""Explainable max-score fusion and relevance-first seed selection."""
 
 from __future__ import annotations
 
@@ -24,19 +24,5 @@ def fuse_candidates(channels: list[list[dict[str, object]]]) -> list[dict[str, o
 
 
 def select_seeds(fused: list[dict[str, object]], nodes_by_id: dict[str, EvidenceNode], top_k: int = 8) -> list[dict[str, object]]:
-    selected = list(fused[:top_k])
-    selected_ids = {str(item["evidence_id"]) for item in selected}
-    represented = {nodes_by_id[str(item["evidence_id"])].modality for item in selected}
-    for family in ({"video_frame", "image"}, {"pdf_text"}, {"speech"}):
-        if represented.intersection(family):
-            continue
-        alternative = next((item for item in fused if nodes_by_id[str(item["evidence_id"])].modality in family
-                            and float(item["seed_score"]) >= 0.20), None)
-        if alternative and str(alternative["evidence_id"]) not in selected_ids:
-            if len(selected) >= top_k:
-                selected[-1] = alternative
-            else:
-                selected.append(alternative)
-            selected_ids = {str(item["evidence_id"]) for item in selected}
-            represented = {nodes_by_id[str(item["evidence_id"])].modality for item in selected}
-    return sorted(selected, key=lambda item: (-float(item["seed_score"]), str(item["evidence_id"])))
+    del nodes_by_id  # retained in the public signature for compatibility
+    return list(fused[:top_k])

@@ -17,7 +17,7 @@ def load_suite(path: Path) -> EvaluationSuite:
     return EvaluationSuite(**json.loads(path.read_text(encoding="utf-8")))
 
 
-def run_evaluation(root: Path, export: bool = True) -> dict[str, object]:
+def run_evaluation(root: Path, export: bool = True, output_stem: str = "results_latest") -> dict[str, object]:
     suite=load_suite(root/'config'/'evaluation_questions.json'); nodes=EvidenceRepository(root/'data'/'app.db').list_evidence_nodes(); by_id={n.id:n for n in nodes}
     valid=set(by_id)
     for q in suite.questions:
@@ -43,14 +43,14 @@ def run_evaluation(root: Path, export: bool = True) -> dict[str, object]:
     bs,gs=summary('baseline'),summary('evidence_graph'); result={"timestamp":datetime.now(timezone.utc).isoformat(),"evaluation_version":suite.version,
       "retrieval_configuration":{"top_k":5,"baseline_model":"sentence-transformers/all-MiniLM-L6-v2","graph_hops":1},"question_definitions":[q.model_dump() for q in suite.questions],"results":rows,
       "summary":{"baseline":bs,"evidence_graph":gs,"delta":{k:gs[k]-bs[k] for k in bs}}}
-    if export: _export(root,result)
+    if export: _export(root,result,output_stem)
     return result
 
 
-def _export(root:Path,result:dict[str,object])->None:
+def _export(root:Path,result:dict[str,object],stem:str="results_latest")->None:
     out=root/'data'/'evaluation'; out.mkdir(parents=True,exist_ok=True)
-    (out/'results.json').write_text(json.dumps(result,indent=2)+'\n',encoding='utf-8')
-    with (out/'results.csv').open('w',newline='',encoding='utf-8') as f:
+    (out/f'{stem}.json').write_text(json.dumps(result,indent=2)+'\n',encoding='utf-8')
+    with (out/f'{stem}.csv').open('w',newline='',encoding='utf-8') as f:
         writer=csv.DictWriter(f,fieldnames=['question_id','question','system','recall_at_5','complete_evidence','provenance_completeness','latency_ms']); writer.writeheader()
         for row in result['results']:
             for system in ('baseline','evidence_graph'):
