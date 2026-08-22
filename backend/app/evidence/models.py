@@ -9,6 +9,7 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator, model_valida
 
 MediaType = Literal["video", "audio", "image", "pdf"]
 Modality = Literal["speech", "video_frame", "image", "ocr_text", "pdf_text", "audio_segment"]
+RelationshipType = Literal["TEMPORAL_OVERLAP", "ENTITY_OVERLAP"]
 
 
 class Source(BaseModel):
@@ -76,4 +77,48 @@ class EvidenceNode(BaseModel):
             raise ValueError("end_sec must not precede start_sec")
         if self.page_number is not None and self.page_number < 1:
             raise ValueError("page_number must be 1-based")
+        return self
+
+
+class SignalBreakdown(BaseModel):
+    """Independent deterministic signals used to create an edge."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    temporal: float | None
+    entity: float | None
+    semantic: None = None
+
+    @field_validator("temporal", "entity")
+    @classmethod
+    def validate_score(cls, value: float | None) -> float | None:
+        if value is not None and not 0.0 <= value <= 1.0:
+            raise ValueError("relationship signal must be in [0, 1]")
+        return value
+
+
+class EvidenceEdge(BaseModel):
+    """One deterministic undirected relationship between two evidence nodes."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    id: str = Field(min_length=1)
+    source_node_id: str = Field(min_length=1)
+    target_node_id: str = Field(min_length=1)
+    relationship_type: RelationshipType
+    confidence: float
+    signal_breakdown: SignalBreakdown
+    explanation: str = Field(min_length=1)
+
+    @field_validator("confidence")
+    @classmethod
+    def validate_confidence(cls, value: float) -> float:
+        if not 0.0 <= value <= 1.0:
+            raise ValueError("edge confidence must be in [0, 1]")
+        return value
+
+    @model_validator(mode="after")
+    def validate_pair(self) -> "EvidenceEdge":
+        if self.source_node_id >= self.target_node_id:
+            raise ValueError("edge node IDs must be distinct and canonically ordered")
         return self

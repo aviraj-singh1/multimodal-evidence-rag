@@ -206,70 +206,96 @@ Status: COMPLETE
 
 ## Milestone 5 — Entities + Evidence Relationships
 
-Status: NOT STARTED
+Status: COMPLETE
 
 ### Entity Layer
-- [ ] Entity extraction
-- [ ] Lowercase / punctuation normalization
-- [ ] Alias map
-- [ ] Ignore generic stop entities
+- [x] Entity extraction
+- [x] Lowercase / punctuation normalization
+- [x] Alias map
+- [x] Ignore generic stop entities
 
 ### Relationships
-- [ ] Define `EvidenceEdge`
-- [ ] Temporal overlap scoring
-- [ ] Entity overlap scoring
-- [ ] Combined confidence calculation
-- [ ] Persist edges in SQLite
-- [ ] Store `signal_breakdown`
-- [ ] Store human-readable explanation
-- [ ] Load graph into NetworkX
-- [ ] Cache `edges.json`
-- [ ] Unit tests
+- [x] Define `EvidenceEdge`
+- [x] Temporal overlap scoring
+- [x] Entity overlap scoring
+- [x] Combined confidence calculation
+- [x] Persist edges in SQLite
+- [x] Store `signal_breakdown`
+- [x] Store human-readable explanation
+- [x] Load graph into NetworkX
+- [x] Cache `edges.json`
+- [x] Unit tests
 
 ### Acceptance
-- [ ] Known speech ↔ frame pair creates TEMPORAL_OVERLAP
-- [ ] Known speech/frame ↔ PDF pair creates ENTITY_OVERLAP
-- [ ] Every edge exposes confidence + reason
+- [x] Known speech ↔ frame pair creates TEMPORAL_OVERLAP
+- [x] Known speech/frame ↔ PDF pair creates ENTITY_OVERLAP
+- [x] Every edge exposes confidence + reason
+
+### Entity and Relationship Notes
+
+- Deterministic configurable phrase/alias extraction enriched 191 of 333 EvidenceNodes with 19 canonical entities. Frame and standalone-image parents aggregate entity metadata from their OCR children while retaining null content.
+- Raw evidence is immutable: OCR `AI Rate limiter` remains unchanged but safely yields `rate limiter`; `failure 529 HTTP code` remains unchanged and does not yield `http 429`. No source content, provenance, extraction confidence, evidence ID, or vector ID changed.
+- The corpus graph contains 451 canonical undirected edges: 213 temporal-primary and 238 entity-primary. Two temporal edges contain both temporal and entity signals; 450 edges are cross-modal and 190 are cross-source.
+- Graph-explosion control excludes entity signals appearing in more than 8% of entity-bearing nodes. Excluded from edge generation only: `cache`, `client`, `logging`, `rate limiter`, `request`, `rules engine`, `server`, and `web server`; these remain stored on nodes.
+- Graph quality: average degree 2.708709, maximum degree 32, and 178 isolated nodes. Ten real temporal/cross-source/manual examples were inspected and were coherent connection signals.
+- Flagship temporal evidence is present: the 720-second frame connects to speech at 713.90-724.94 seconds with temporal score 1.0; shared `throughput` contributes entity score 0.5 and combined confidence 0.8.
+- Cross-source OCR/PDF evidence is present, including frame OCR `throughput)` linked to the page-1 PDF throughput block. Speech/PDF and standalone-image/PDF entity connections also exist.
+- SQLite, the four enriched `evidence.json` files, global `data/cache/graph/edges.json`, and the NetworkX graph agree. Foreign keys, atomic rollback, and exact rerun idempotency passed.
+- Tests: 39 passed; one pre-existing FFmpeg-dependent test class was skipped because FFmpeg was not on the test process PATH. `pip check` reports no broken requirements.
 
 ---
 
 ## Milestone 6 — Multimodal Retrieval + Graph Expansion
 
-Status: NOT STARTED
+Status: COMPLETE
 
 ### Vector Setup
-- [ ] Chroma persistent storage
-- [ ] `text_evidence` collection
-- [ ] `visual_evidence` collection
-- [ ] MiniLM text embeddings
-- [ ] CLIP image embeddings if enabled
+- [x] Chroma persistent storage
+- [x] `text_evidence` collection
+- [x] `visual_evidence` collection
+- [x] MiniLM text embeddings
+- [x] CLIP image embeddings if enabled
 
 ### Retrieval
-- [ ] Query MiniLM embedding
-- [ ] Query CLIP text embedding
-- [ ] Query entity extraction
-- [ ] Text retrieval
-- [ ] Visual retrieval
-- [ ] Entity retrieval
-- [ ] Candidate fusion
-- [ ] NetworkX graph expansion
-- [ ] Reranking
-- [ ] Evidence bundle creation
+- [x] Query MiniLM embedding
+- [x] Query CLIP text embedding
+- [x] Query entity extraction
+- [x] Text retrieval
+- [x] Visual retrieval
+- [x] Entity retrieval
+- [x] Candidate fusion
+- [x] NetworkX graph expansion
+- [x] Reranking
+- [x] Evidence bundle creation
 
 ### Answer
-- [ ] Deterministic answer formatter
+- [x] Deterministic answer formatter
 - [ ] External LLM adapter only if time permits
 
 ### API
-- [ ] POST `/api/query`
-- [ ] GET `/api/evidence`
-- [ ] GET `/api/evidence/{id}`
+- [x] POST `/api/query`
+- [x] GET `/api/evidence`
+- [x] GET `/api/evidence/{id}`
 
 ### Acceptance
-- [ ] Query retrieves 2+ modalities
-- [ ] Graph expansion returns evidence not directly found by vector search
-- [ ] Results retain timestamps/pages/frames
-- [ ] Query works with external LLM disabled
+- [x] Query retrieves 2+ modalities
+- [x] Graph expansion returns evidence not directly found by vector search
+- [x] Results retain timestamps/pages/frames
+- [x] Query works with external LLM disabled
+
+### Retrieval and Index Notes
+
+- Persistent ChromaDB contains `text_evidence` with 316 raw-content MiniLM vectors and `visual_evidence` with 17 actual-image CLIP vectors. Evidence IDs are Chroma IDs; deterministic `text:<id>` and `visual:<id>` references agree between SQLite and all four `evidence.json` caches.
+- Models: `sentence-transformers/all-MiniLM-L6-v2` (384 dimensions) and `openai/clip-vit-base-patch32` (512 dimensions), CPU. The first model download/index build took 301.130 seconds; an exact cached rebuild took 3.542 seconds and retained the same collection counts and IDs.
+- ChromaDB 0.4.24 was selected after 0.5.23 produced frozen-stack conflicts with Transformers tokenizers and PaddlePaddle protobuf. Compatible pins restore `pip check`: ChromaDB 0.4.24, tokenizers 0.21.4, protobuf 3.20.2, and PostHog 3.7.0.
+- Retrieval uses cosine relevance `clamp(1 - cosine_distance, 0, 1)`, deterministic query entities, max-score channel fusion, bounded diverse seeds, persisted NetworkX expansion (1 hop default, 0.55 minimum confidence, 25-node cap), transparent reranking, and an eight-item complementary evidence bundle.
+- Q1-Q6 all returned at least four final modalities. Q6 returned speech, OCR, frame, standalone image, and PDF evidence across all four sources, including speaker/timestamp, frame path, and PDF page provenance.
+- Required graph value-add is verified: direct retrieval seeds introduced non-seed evidence through persisted edges. For Q1, graph expansion added the 960-second frame through a temporal connection to retrieved speech; for throughput/rules-cache queries it added cross-source images, OCR, speech, and PDF evidence.
+- HTTP 429 retrieval ranks correct speech and correct 429 OCR; the noisy `failure 529 HTTP code` remains unchanged and was not returned as a 429 match. `AI Rate limiter` also remains raw.
+- Q1-Q6 average full-pipeline latency in one process was 209.964 ms including the 1046.984 ms cold first query; warmed queries were approximately 40-47 ms. Models are cached once per process.
+- Manual QA: Q1, Q2, Q4, and Q5 were directly strong. Q3 and Q6 have weaker top text matches because their wording contains no configured canonical entity, but CLIP, modality-diverse fusion, and graph expansion recover coherent visuals, speech, and PDF evidence. No Milestone 5 graph retuning was performed.
+- FastAPI `/api/health`, `/api/query`, `/api/evidence`, and `/api/evidence/{id}` pass. Generation is deterministic and external-LLM independent.
+- Tests: 49 passed with one pre-existing FFmpeg PATH-dependent class skipped. No baseline index, evaluation, frontend, semantic edges, or external LLM integration was created.
 
 ---
 

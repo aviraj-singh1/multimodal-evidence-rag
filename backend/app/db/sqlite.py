@@ -9,7 +9,7 @@ from contextlib import closing
 from datetime import datetime, timezone
 from pathlib import Path
 
-from backend.app.evidence.models import EvidenceNode, Source
+from backend.app.evidence.models import EvidenceEdge, EvidenceNode, SignalBreakdown, Source
 
 
 class EvidenceStore:
@@ -95,6 +95,66 @@ class EvidenceStore:
     def foreign_key_violations(self) -> list[tuple[object, ...]]:
         with closing(self.connect()) as connection:
             return connection.execute("PRAGMA foreign_key_check").fetchall()
+
+    def replace_graph(self, nodes: list[EvidenceNode], edges: list[EvidenceEdge]) -> None:
+        """Atomically enrich all node entities and replace the corpus edge set."""
+        node_ids = {node.id for node in nodes}
+        if any(edge.source_node_id not in node_ids or edge.target_node_id not in node_ids for edge in edges):
+            raise ValueError("every edge endpoint must be in the supplied node corpus")
+        self.initialize()
+        built_at = datetime.now(timezone.utc).isoformat()
+        with closing(self.connect()) as connection:
+            with connection:
+                existing = {row[0] for row in connection.execute("SELECT id FROM evidence_nodes")}
+                if existing != node_ids:
+                    raise ValueError("SQLite evidence node set differs from graph corpus")
+                connection.executemany(
+                    "UPDATE evidence_nodes SET entities_json = ? WHERE id = ?",
+                    [(_json(node.entities), node.id) for node in nodes],
+                )
+                connection.execute("DELETE FROM evidence_edges")
+                connection.executemany(
+                    """INSERT INTO evidence_edges
+                       (id, source_node_id, target_node_id, relationship_type, confidence,
+                        signal_breakdown_json, explanation, created_at)
+                       VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
+                    [(edge.id, edge.source_node_id, edge.target_node_id, edge.relationship_type,
+                      edge.confidence, _json(edge.signal_breakdown.model_dump()), edge.explanation,
+                      built_at) for edge in edges],
+                )
+
+    def edge_count(self) -> int:
+        with closing(self.connect()) as connection:
+            return int(connection.execute("SELECT COUNT(*) FROM evidence_edges").fetchone()[0])
+
+    def edge_ids(self) -> list[str]:
+        with closing(self.connect()) as connection:
+            return [row[0] for row in connection.execute("SELECT id FROM evidence_edges ORDER BY id")]
+
+    def load_edges(self) -> list[EvidenceEdge]:
+        with closing(self.connect()) as connection:
+            rows = connection.execute(
+                """SELECT id, source_node_id, target_node_id, relationship_type, confidence,
+                          signal_breakdown_json, explanation FROM evidence_edges ORDER BY id"""
+            ).fetchall()
+        return [EvidenceEdge(
+            id=row[0], source_node_id=row[1], target_node_id=row[2], relationship_type=row[3],
+            confidence=row[4], signal_breakdown=SignalBreakdown(**json.loads(row[5])),
+            explanation=row[6],
+        ) for row in rows]
+
+    def update_vector_references(self, nodes: list[EvidenceNode]) -> None:
+        """Persist deterministic vector references without altering evidence content."""
+        self.initialize()
+        with closing(self.connect()) as connection:
+            with connection:
+                existing = {row[0] for row in connection.execute("SELECT id FROM evidence_nodes")}
+                if existing != {node.id for node in nodes}:
+                    raise ValueError("SQLite evidence node set differs from vector corpus")
+                connection.executemany(
+                    "UPDATE evidence_nodes SET text_vector_id = ?, visual_vector_id = ? WHERE id = ?",
+                    [(node.text_vector_id, node.visual_vector_id, node.id) for node in nodes],
+                )
 
 
 def _json(value: object) -> str:

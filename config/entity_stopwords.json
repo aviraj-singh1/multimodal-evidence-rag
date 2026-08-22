@@ -1,0 +1,11 @@
+{
+  "stop_entities": [
+    "architecture",
+    "data",
+    "design",
+    "information",
+    "system",
+    "team",
+    "thing"
+  ]
+}
