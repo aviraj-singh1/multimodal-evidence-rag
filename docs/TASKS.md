@@ -342,75 +342,89 @@ Status: COMPLETE
 
 ## Milestone 8 — Frontend
 
-Status: NOT STARTED
+Status: COMPLETE
 
 ### Dataset
-- [ ] Source list
-- [ ] Processing status
-- [ ] Load Demo Dataset button
+- [x] Source list
+- [x] Processing status
+- [x] Load Demo Dataset button
 
 ### Ask
-- [ ] Query input
-- [ ] EvidenceGraph query
-- [ ] Baseline toggle
-- [ ] Final answer
-- [ ] Evidence cards
+- [x] Query input
+- [x] EvidenceGraph query
+- [x] Baseline toggle
+- [x] Final answer
+- [x] Evidence cards
 
 ### Evidence Explorer
-- [ ] Speech evidence card
-- [ ] Frame/image evidence card
-- [ ] PDF evidence card
-- [ ] Connected evidence
-- [ ] Edge type
-- [ ] Confidence
-- [ ] Signal breakdown
-- [ ] "Why these connect"
+- [x] Speech evidence card
+- [x] Frame/image evidence card
+- [x] PDF evidence card
+- [x] Connected evidence
+- [x] Edge type
+- [x] Confidence
+- [x] Signal breakdown
+- [x] "Why these connect"
 
 ### Acceptance
-- [ ] Judge can understand the evidence chain without seeing backend logs
-- [ ] Flagship query is demo-ready
+- [x] Judge can understand the evidence chain without seeing backend logs
+- [x] Flagship query is demo-ready
+
+### Frontend Notes
+
+- One responsive React screen exposes the four cached sources, processing readiness, the flagship query, EvidenceGraph/text-baseline switching, deterministic answers, and the frozen V1.5 comparison metrics.
+- Evidence cards retain modality, raw content, source filename, speaker, timestamps, PDF pages, frame imagery, direct/expanded origin, and provenance. Relationship rows expose edge type, confidence, and the persisted explanation.
+- FastAPI serves cached frame/image assets under `/media` and allows only local development origins. The frontend displays the first five items while leaving the exact active V1.5 retrieval behavior unchanged.
+- Production frontend build passed; backend integration and media loading passed.
 
 ---
 
 ## Milestone 9 — Demo Reliability + Documentation
 
-Status: NOT STARTED
+Status: COMPLETE
 
 ### Cache
-- [ ] Final demo corpus completely processed
-- [ ] transcript.json
-- [ ] diarization.json
-- [ ] frames.json
-- [ ] ocr.json
-- [ ] pdf_blocks.json
-- [ ] evidence.json
-- [ ] edges.json
-- [ ] embeddings persisted
-- [ ] `/api/demo/load`
+- [x] Final demo corpus completely processed
+- [x] transcript.json
+- [x] diarization.json
+- [x] frames.json
+- [x] ocr.json
+- [x] pdf_blocks.json
+- [x] evidence.json
+- [x] edges.json
+- [x] embeddings persisted
+- [x] `/api/demo/load`
 
 ### Reliability
-- [ ] Restart backend and reload demo from cache
-- [ ] Test with external LLM disabled
-- [ ] Test with CLIP disabled
-- [ ] Test flagship query repeatedly
+- [x] Restart backend and reload demo from cache
+- [x] Test with external LLM disabled
+- [x] Test with CLIP disabled
+- [x] Test flagship query repeatedly
 
 ### Docs
-- [ ] README.md
-- [ ] ARCHITECTURE.md
-- [ ] SCHEMA.md
-- [ ] FUTURE.md
-- [ ] DEMO.md
+- [x] README.md
+- [x] ARCHITECTURE.md
+- [x] SCHEMA.md
+- [x] FUTURE.md
+- [x] DEMO.md
 
 ### Final Demo Acceptance
-- [ ] Video/audio/image/PDF represented
-- [ ] Cross-modal relationship visible
-- [ ] Query requires multiple modalities
-- [ ] Speaker shown
-- [ ] Timestamp shown
-- [ ] Frame shown
-- [ ] PDF page shown
-- [ ] Baseline comparison shown
-- [ ] Evaluation table shown
+- [x] Video/audio/image/PDF represented
+- [x] Cross-modal relationship visible
+- [x] Query requires multiple modalities
+- [x] Speaker shown
+- [x] Timestamp shown
+- [x] Frame shown
+- [x] PDF page shown
+- [x] Baseline comparison shown
+- [x] Evaluation table shown
+
+### Demo Reliability Notes
+
+- `/api/demo/load` restores the prepared corpus from SQLite/Chroma/NetworkX state without rerunning extraction models and reports 4 sources, 333 evidence nodes, 451 edges, active policy V1.5, and frozen V1.5 metrics.
+- Backend restart-from-cache passed. Three repeated flagship queries returned identical top-five evidence IDs; warmed runs were approximately 46–48 ms after the cold model load.
+- External LLM remains disabled. `DISABLE_CLIP=1` was tested: visual candidates become empty while text/entity retrieval, graph expansion, and evidence-bundle generation continue successfully.
+- Final verification: 65 backend tests passed, one local FFmpeg-PATH-dependent class skipped, `pip check` clean, and the React production build passed.
 
 ---
 

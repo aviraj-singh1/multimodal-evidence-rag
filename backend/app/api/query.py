@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import time
+import os
 from functools import lru_cache
 from pathlib import Path
 
@@ -60,7 +61,9 @@ class QueryService:
         started = time.perf_counter()
         query_entities = extract_entities(request.question, self.entity_config)
         mark = time.perf_counter(); text_hits = text_search(self.chroma, request.question, 8); text_ms = (time.perf_counter()-mark)*1000
-        mark = time.perf_counter(); visual_hits = visual_search(self.chroma, request.question, 5); visual_ms = (time.perf_counter()-mark)*1000
+        mark = time.perf_counter()
+        visual_hits = [] if os.getenv("DISABLE_CLIP", "").lower() in {"1", "true", "yes"} else visual_search(self.chroma, request.question, 5)
+        visual_ms = (time.perf_counter()-mark)*1000
         entity_hits = entity_search(self.nodes, query_entities, 12)
         fused = fuse_candidates([text_hits, visual_hits, entity_hits])
         seeds = select_seeds(fused, self.by_id, request.top_k)
