@@ -19,7 +19,8 @@ class QueryPipelineTests(unittest.TestCase):
     def test_validation_complete_multimodal_graph_expanded_pipeline(self) -> None:
         with self.assertRaises(ValidationError):
             QueryRequest(question="   ")
-        result = self.service.query("What architecture was discussed, who explained it, and where was it shown?", 8, 1)
+        with patch.dict("os.environ", {"GENERATION_PROVIDER": "deterministic"}):
+            result = self.service.query("What architecture was discussed, who explained it, and where was it shown?", 8, 1)
         self.assertTrue(result["evidence_bundle"])
         self.assertEqual(result["generation_mode"], "deterministic")
         modalities = {item["node"]["modality"] for item in result["evidence_bundle"]}
@@ -42,7 +43,8 @@ class QueryPipelineTests(unittest.TestCase):
                          (4, 333, 451))
         self.assertEqual(demo.json()["active_retrieval_policy"], "V1.5")
         self.assertEqual(demo.json()["evaluation_version"], "V1.5")
-        query = client.post("/api/query", json={"question": "How is high throughput handled?", "top_k": 5, "graph_hops": 1})
+        with patch.dict("os.environ", {"GENERATION_PROVIDER": "deterministic"}):
+            query = client.post("/api/query", json={"question": "How is high throughput handled?", "top_k": 5, "graph_hops": 1})
         self.assertEqual(query.status_code, 200)
         self.assertTrue(query.json()["evidence_bundle"])
         listing = client.get("/api/evidence", params={"modality": "speech"})
@@ -53,7 +55,7 @@ class QueryPipelineTests(unittest.TestCase):
         self.assertTrue(detail.json()["connected_edges"])
 
     def test_clip_disabled_fallback_keeps_query_operational(self) -> None:
-        with patch.dict("os.environ", {"DISABLE_CLIP": "1"}):
+        with patch.dict("os.environ", {"DISABLE_CLIP": "1", "GENERATION_PROVIDER": "deterministic"}):
             result = QueryService().query("Explain request limiting and connected evidence.", 5, 1)
         self.assertEqual(result["channels"]["visual"], [])
         self.assertTrue(result["evidence_bundle"])

@@ -14,7 +14,7 @@ from backend.app.db.sqlite import EvidenceStore
 from backend.app.evidence.entities import extract_entities, load_entity_config
 from backend.app.evidence.models import EvidenceNode
 from backend.app.evidence.repository import EvidenceRepository
-from backend.app.generation.deterministic import format_answer
+from backend.app.generation.ollama import generate_answer
 from backend.app.graph.loader import load_graph
 from backend.app.retrieval.entity_search import entity_search
 from backend.app.retrieval.evidence_bundle import select_bundle
@@ -72,7 +72,8 @@ class QueryService:
         ); graph_ms = (time.perf_counter()-mark)*1000
         ranked = rerank(seeds, expanded, self.by_id, self.retrieval_policy)
         bundle, selection = select_bundle(ranked, 8, self.retrieval_policy)
-        return {
+        generation = generate_answer(request.question, bundle, connections)
+        response = {
             "question": request.question, "query_entities": query_entities,
             "channels": {"text": text_hits, "visual": visual_hits, "entity": entity_hits},
             "seed_evidence": [{**seed, "modality": self.by_id[str(seed["evidence_id"])].modality}
@@ -81,11 +82,17 @@ class QueryService:
                                   for item in expanded],
             "connections": connections, "evidence_bundle": bundle,
             "selection_diagnostics": selection,
-            "answer": format_answer(bundle), "generation_mode": "deterministic",
+            "answer": generation.answer, "generation_mode": generation.mode,
+            "generation_model": generation.model,
+            "cited_evidence_labels": list(generation.cited_evidence_labels),
+            "generation_latency_ms": generation.latency_ms,
             "latency_ms": round((time.perf_counter()-started)*1000, 3),
             "timings_ms": {"text": round(text_ms, 3), "visual": round(visual_ms, 3),
                            "graph": round(graph_ms, 3)},
         }
+        if generation.fallback_reason:
+            response["generation_fallback_reason"] = generation.fallback_reason
+        return response
 
 
 @lru_cache(maxsize=1)

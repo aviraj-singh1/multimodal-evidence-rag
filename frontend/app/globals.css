@@ -53,7 +53,7 @@ textarea:focus { box-shadow:0 0 0 2px var(--green); }
 .results { padding-top:14px; }
 .answer-card { padding:28px; margin-bottom:30px; border-left:5px solid var(--green); }
 .answer-card.baseline { border-left-color:#a78968; }
-.answer-card>p:not(.eyebrow) { font-family:Georgia,serif; font-size:24px; line-height:1.45; margin:0 0 15px; }
+.answer-card>p:not(.eyebrow) { font-family:Georgia,serif; font-size:24px; line-height:1.45; margin:0 0 15px; white-space:pre-wrap; }
 .answer-card small { color:var(--muted); }
 .results>.section-title { margin:0 0 15px; }
 .evidence-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }

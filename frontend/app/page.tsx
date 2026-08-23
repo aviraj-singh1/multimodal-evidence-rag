@@ -9,7 +9,9 @@ type Evidence = { evidence_id: string; origin: "direct" | "graph_expanded"; fina
   id: string; source_id: string; modality: string; content: string | null; start_sec: number | null;
   end_sec: number | null; speaker: string | null; page_number: number | null; frame_path: string | null;
   entities: string[]; confidence: number | null; provenance: Record<string, unknown> } };
-type GraphResult = { answer: string; evidence_bundle: Evidence[]; latency_ms: number; connections: Array<{
+type GraphResult = { answer: string; generation_mode?: "ollama" | "deterministic"; generation_model?: string | null;
+  generation_fallback_reason?: string; cited_evidence_labels?: string[]; generation_latency_ms?: number;
+  evidence_bundle: Evidence[]; latency_ms: number; connections: Array<{
   from_id: string; to_id: string; relationship_type: string; confidence: number; explanation: string;
   signal_breakdown: Record<string, number | null> }> };
 type BaselineResult = { answer: string; latency_ms: number; results: Array<{
@@ -79,7 +81,11 @@ export default function Home() {
     } catch (cause) { setError(cause instanceof Error ? cause.message : "Evidence lookup failed."); }
     finally { setDetailLoading(false); }
   }
-  const evidence = useMemo(() => graph?.evidence_bundle.slice(0, 5) ?? [], [graph]);
+  const evidence = useMemo(() => {
+    if (!graph) return [];
+    const cited = new Set(graph.cited_evidence_labels ?? []);
+    return graph.evidence_bundle.filter((_item, index) => index < 5 || cited.has(`E${index + 1}`));
+  }, [graph]);
 
   return <main>
     <header className="topbar"><a className="brand" href="#top"><span className="mark">E</span>EvidenceGraph</a>
@@ -105,7 +111,7 @@ export default function Home() {
       <div className="metric"><span>Complete</span><b>{demo.evaluation_summary.evidence_graph.complete_evidence_rate.toFixed(3)}</b><small>Baseline {demo.evaluation_summary.baseline.complete_evidence_rate.toFixed(3)}</small></div>
       <div className="metric highlight"><span>Provenance</span><b>{demo.evaluation_summary.evidence_graph.provenance_completeness.toFixed(3)}</b><small>Baseline {demo.evaluation_summary.baseline.provenance_completeness.toFixed(3)}</small></div></section>}
 
-    {mode === "graph" && graph && <section className="results"><div className="answer-card"><p className="eyebrow">Provenance-preserving answer</p><p>{graph.answer.split("\n")[0]}</p><small>Deterministic · {graph.latency_ms.toFixed(1)} ms · {evidence.length} displayed observations</small></div>
+    {mode === "graph" && graph && <section className="results"><div className="answer-card"><p className="eyebrow">{graph.generation_mode === "ollama" ? "Local grounded synthesis" : "Deterministic fallback"}</p><p>{graph.answer}</p><small>{graph.generation_mode === "ollama" ? graph.generation_model : "Local synthesis unavailable"} · {(graph.generation_latency_ms ?? graph.latency_ms).toFixed(1)} ms generation · {evidence.length} traceable observations</small></div>
       <div className="section-title"><span>Evidence chain</span><small>Direct retrieval + connected evidence</small></div><div className="evidence-grid">{evidence.map((item) => {
         const node = item.node; const image = mediaUrl(node.frame_path); return <button type="button" className="evidence-card" aria-label={`Inspect ${node.modality} evidence ${node.id}`} onClick={() => void inspectEvidence(node.id)} key={node.id}>{image && <img src={image} alt={`Evidence from ${String(node.provenance.file ?? node.source_id)}`} />}<div className="card-body"><div className="card-meta"><span className={`modality ${node.modality}`}>{node.modality.replace("_", " ")}</span><span>{item.origin === "direct" ? "Direct" : "Graph connected"}</span></div><p>{node.content || "Visual evidence from the source media."}</p><div className="provenance"><b>{String(node.provenance.file ?? node.source_id)}</b>{node.speaker && <span>Speaker {node.speaker}</span>}{node.start_sec != null && <span>{clock(node.start_sec)}–{clock(node.end_sec)}</span>}{node.page_number && <span>Page {node.page_number}</span>}</div></div></button>;
       })}</div><div className="connections"><div className="section-title"><span>Why these connect</span><small>Explicit evidence edges</small></div>{graph.connections.slice(0, 6).map((edge, index) => <div className="edge" key={`${edge.from_id}-${edge.to_id}-${index}`}><span className="edge-type">{edge.relationship_type.replace("_", " ")}</span><p>{edge.explanation}</p><b>{Math.round(edge.confidence * 100)}%</b></div>)}</div></section>}
