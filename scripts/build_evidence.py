@@ -28,7 +28,7 @@ def parse_args() -> argparse.Namespace:
     selection.add_argument("--source", help="build one deterministic source ID")
     parser.add_argument("--cache-root", type=Path, default=REPO_ROOT / "data" / "cache")
     parser.add_argument("--database", type=Path, default=REPO_ROOT / "data" / "app.db")
-    parser.add_argument("--dataset-dir", type=Path, default=REPO_ROOT.parent / "demo_dataset")
+    parser.add_argument("--dataset-dir", type=Path, default=REPO_ROOT / "demo_test")
     return parser.parse_args()
 
 

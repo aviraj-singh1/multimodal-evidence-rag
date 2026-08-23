@@ -15,7 +15,7 @@ from backend.app.evidence.builder import build_evidence, discover_evidence_sourc
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 CACHE_ROOT = REPO_ROOT / "data" / "cache"
-DATASET_DIR = REPO_ROOT.parent / "demo_dataset"
+DATASET_DIR = REPO_ROOT / "demo_test"
 
 
 class EvidenceStorageTests(unittest.TestCase):

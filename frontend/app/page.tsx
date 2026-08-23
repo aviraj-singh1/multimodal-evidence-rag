@@ -31,7 +31,10 @@ function clock(value: number | null) {
   return `${Math.floor(value / 60)}:${Math.floor(value % 60).toString().padStart(2, "0")}`;
 }
 function mediaUrl(path: string | null) {
-  return path ? `${API}/media/${path.replace(/^data[\\/]/, "").replaceAll("\\", "/")}` : null;
+  if (!path) return null;
+  const normalized = path.replaceAll("\\", "/");
+  if (normalized.startsWith("demo_test/")) return `${API}/demo-media/${normalized.slice("demo_test/".length)}`;
+  return `${API}/media/${normalized.replace(/^data\//, "")}`;
 }
 function safeScore(value: unknown) {
   return typeof value === "number" && Number.isFinite(value) ? `${(value * 100).toFixed(1)}%` : "—";

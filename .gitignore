@@ -5,4 +5,5 @@ __pycache__/
 data/cache/
 data/uploads/
 data/chroma/
+demo_test/
 *.db

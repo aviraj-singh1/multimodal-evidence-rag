@@ -53,6 +53,7 @@ class QueryPipelineTests(unittest.TestCase):
         detail = client.get("/api/evidence/ev_1347fcb63e98_frame_0009")
         self.assertEqual(detail.status_code, 200)
         self.assertTrue(detail.json()["connected_edges"])
+        self.assertEqual(client.get("/demo-media/architecture_01.png").status_code, 200)
 
     def test_clip_disabled_fallback_keeps_query_operational(self) -> None:
         with patch.dict("os.environ", {"DISABLE_CLIP": "1", "GENERATION_PROVIDER": "deterministic"}):

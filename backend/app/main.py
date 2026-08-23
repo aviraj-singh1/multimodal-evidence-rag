@@ -25,6 +25,7 @@ app.include_router(baseline_router)
 app.include_router(evaluation_router)
 app.include_router(demo_router)
 app.mount("/media", StaticFiles(directory=ROOT / "data"), name="media")
+app.mount("/demo-media", StaticFiles(directory=ROOT / "demo_test"), name="demo-media")
 
 
 @app.get("/api/health")

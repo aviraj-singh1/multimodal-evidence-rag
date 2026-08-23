@@ -62,7 +62,7 @@ data/cache/{source_id}/
 
 ### Preprocessing Notes
 
-- Demo fixture: external read-only `../demo_dataset/meeting_demo.mp4` (H.264, 1280×720, 25 FPS, 1354.0 seconds; AAC stereo 44.1 kHz source audio).
+- Demo fixture: repository-local `demo_test/meeting_demo.mp4` (H.264, 1280×720, 25 FPS, 1354.0 seconds; AAC stereo 44.1 kHz source audio).
 - Deterministic source ID: `src_1347fcb63e98`, derived from the first 12 characters of the source SHA-256.
 - Audio output: PCM signed 16-bit little-endian WAV, mono, 16 kHz; FFprobe validation and a decode test passed.
 - Direct audio: external MP3 and a direct WAV input both normalized successfully without overwriting their inputs.

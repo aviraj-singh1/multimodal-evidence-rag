@@ -14,7 +14,7 @@ from backend.app.extraction.pdf_blocks import extract_pdf_blocks, validate_pdf_b
 ROOT = Path(__file__).resolve().parents[2]
 CACHE_ROOT = ROOT / "data" / "cache"
 PDF_CACHE = CACHE_ROOT / "src_00b5ee2f232b"
-PDF_FIXTURE = ROOT.parent / "demo_dataset" / "rate_limiter_design.pdf"
+PDF_FIXTURE = ROOT / "demo_test" / "rate_limiter_design.pdf"
 
 
 class PDFExtractionTests(unittest.TestCase):

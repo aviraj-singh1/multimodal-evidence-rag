@@ -59,7 +59,7 @@ class OCRTests(unittest.TestCase):
     def test_ocr_cache_reuse_without_engine(self) -> None:
         video = extract_video_frame_ocr(VIDEO_CACHE)
         self.assertEqual(video.cache_status, "REUSED")
-        original = ROOT.parent / "demo_dataset" / "architecture_02.png"
+        original = ROOT / "demo_test" / "architecture_02.png"
         image = extract_image_ocr(original, CACHE_ROOT)
         self.assertEqual(image.cache_status, "REUSED")
 
@@ -78,4 +78,3 @@ class OCRTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-

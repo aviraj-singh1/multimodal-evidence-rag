@@ -15,7 +15,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SMOKE_DIR = ROOT / "data" / "smoke"
 CACHE_DIR = ROOT / "data" / "cache" / "models"
-DATASET_DIR = ROOT.parent / "demo_dataset"
+DATASET_DIR = ROOT / "demo_test"
 HF_CACHE = CACHE_DIR / "huggingface"
 
 SMOKE_DIR.mkdir(parents=True, exist_ok=True)

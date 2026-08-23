@@ -11,7 +11,7 @@ from backend.app.evidence.builder import build_evidence
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 CACHE_ROOT = REPO_ROOT / "data" / "cache"
-DATASET_DIR = REPO_ROOT.parent / "demo_dataset"
+DATASET_DIR = REPO_ROOT / "demo_test"
 VIDEO_ID = "src_1347fcb63e98"
 IMAGE_IDS = ("src_9899772d9cc4", "src_66bf6ebf0dbc")
 PDF_ID = "src_00b5ee2f232b"
